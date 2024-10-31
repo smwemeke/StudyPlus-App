@@ -7,7 +7,7 @@ The Makerere University - Johns Hopkins University (MU-JHU) Research Collaborati
 **Communication Gaps**: Fragmented communication between Study Coordinators and participants slows data collection and feedback loops.
 **Role-Specific Needs**: Current systems don’t account for role-specific functionalities for coordinators, participants, and the research management team.
 ##Project Objective
-StudyPlus aims to develop a streamlined, efficient platform tailored to health research management, with the Study Coordinator acting as the system’s Admin. This role includes the ability to manage studies, oversee participant tracking, and ensure data accuracy and smooth communication. The platform is designed to facilitate improved study coordination and data management.
+StudyPlus aims to develop a streamlined, efficient platform tailored to health research management, with the Study Coordinator acting as the system’s Admin. This role includes the ability to manage studies, oversee participant tracking, and ensure data accuracy and smooth communication. The platform is designed to facilitate improved study coordination and data management. 
 
 Create a research management platform that:
 **User Roles**:
