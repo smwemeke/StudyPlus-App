@@ -18,9 +18,7 @@ StudyPlus aims to develop a streamlined, efficient platform tailored to health r
 
 Create a research management platform that:
 
-    **User Roles**:
-
-        **Study Coordinator (Admin)**: Has full control over platform data, including the ability to:
+   **Study Coordinator (Admin)**: Has full control over platform data, including the ability to:
    
         - Register, manage, and update studies.
         
