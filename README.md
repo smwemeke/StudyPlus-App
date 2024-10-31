@@ -17,8 +17,9 @@ The Makerere University - Johns Hopkins University (MU-JHU) Research Collaborati
 StudyPlus aims to develop a streamlined, efficient platform tailored to health research management, with the Study Coordinator acting as the system’s Admin. This role includes the ability to manage studies, oversee participant tracking, and ensure data accuracy and smooth communication. The platform is designed to facilitate improved study coordination and data management. 
 
 Create a research management platform that:
+   **User Roles**:
 
-   **Study Coordinator (Admin)**: Has full control over platform data, including the ability to:
+   ***Study Coordinator (Admin)***: Has full control over platform data, including the ability to:
    
         - Register, manage, and update studies.
         
@@ -26,7 +27,7 @@ Create a research management platform that:
         
         - Perform CRUD operations across studies and participants.
         
-   **Participant**: 
+   ***Participant***: 
         - View study details
         
         - Receives notifications (enrollment confirmation, study end date etc)
