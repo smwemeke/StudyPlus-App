@@ -1,13 +1,19 @@
 # Problem Statement: StudyPlus-App
+
 ## Challenges
 The Makerere University - Johns Hopkins University (MU-JHU) Research Collaboration faces several challenges in managing health research studies efficiently, including:
 
-      ### Complex Study Coordination: Numerous ongoing studies lack a centralized system, making it difficult for Study Coordinators to oversee progress, track participants, and manage study resources.
-      **Data Accuracy Issues**: Without real-time data oversight, inaccuracies can arise, impacting the integrity of studies.
+**Complex Study Coordination**: Numerous ongoing studies lack a centralized system, making it difficult for Study Coordinators to oversee progress, track participants, and manage study resources.
+
+**Data Accuracy Issues**: Without real-time data oversight, inaccuracies can arise, impacting the integrity of studies.
+
 **Inefficient Participant Management**: Tracking participant details across studies is difficult, leading to delays in recruitment, tracking, and follow-ups.
+
 **Communication Gaps**: Fragmented communication between Study Coordinators and participants slows data collection and feedback loops.
+
 **Role-Specific Needs**: Current systems don’t account for role-specific functionalities for coordinators, participants, and the research management team.
-##Project Objective
+
+## Project Objective
 StudyPlus aims to develop a streamlined, efficient platform tailored to health research management, with the Study Coordinator acting as the system’s Admin. This role includes the ability to manage studies, oversee participant tracking, and ensure data accuracy and smooth communication. The platform is designed to facilitate improved study coordination and data management. 
 
 Create a research management platform that:
