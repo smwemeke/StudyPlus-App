@@ -1,4 +1,4 @@
-# Problem Statement: StudyPlus-App
+# 1. Problem Statement: StudyPlus-App
 
 ## Challenges
 The Makerere University - Johns Hopkins University (MU-JHU) Research Collaboration faces several challenges in managing health research studies efficiently, including:
