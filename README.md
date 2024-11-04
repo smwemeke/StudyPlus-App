@@ -48,10 +48,9 @@ Improve study management and data accuracy by creating a well-structured platfor
 # 2. Architecture
 ![StudyPlus_Architecture](https://github.com/user-attachments/assets/e2bbcdf6-32ed-4e10-8338-78b8bd2b30c5)
 
-
 # 3. UML Class Diagram
 ![StudyPlus_Class Diagram](https://github.com/user-attachments/assets/fddbd6b2-9a57-418a-b2da-187645483649)
 
-
-
 # 4. ER Diagram
+
+![StudyPlus_ER Diagram](https://github.com/user-attachments/assets/c362d063-874e-48c3-b8cc-662d6edbc20d)
