@@ -46,7 +46,8 @@ Create a research management platform that:
 Improve study management and data accuracy by creating a well-structured platform that meets the needs of coordinators and participants. This includes simplified participant registration, real-time study progress tracking, and robust reporting to support MU-JHU’s mission in health research and services, leading to improved study management and outcomes.
 
 # 2. Architecture
-![StudyPlus_Architecture](https://github.com/user-attachments/assets/e2bbcdf6-32ed-4e10-8338-78b8bd2b30c5)
+
+![StudyPlus_Architecture](https://github.com/user-attachments/assets/541d2232-e753-4f00-9d84-2e059bed4602)
 
 # 3. UML Class Diagram
 ![StudyPlus_Class Diagram](https://github.com/user-attachments/assets/fddbd6b2-9a57-418a-b2da-187645483649)
