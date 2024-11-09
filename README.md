@@ -55,4 +55,4 @@ Improve study management and data accuracy by creating a well-structured platfor
 
 # 4. ER Diagram
 
-![StudyPlus_ER Diagram](https://github.com/user-attachments/assets/c362d063-874e-48c3-b8cc-662d6edbc20d)
+![StudyPlus_ER Diagram](https://github.com/user-attachments/assets/8a4d9164-d44d-4d8e-9c2d-d2731343c6af)
