@@ -10,7 +10,10 @@ public record StudyRequestDTO(
         String description,
         LocalDate startDate,
         LocalDate endDate,
-        String studySponsor
+        String studySponsor,
+        //CoordinatorRequestDTO coordinatorRequestDTO,
+        ParticipantRequestDTO participantRequestDTO,
+        NotificationRequestDTO notificationRequestDTO
 
 ) {
 }

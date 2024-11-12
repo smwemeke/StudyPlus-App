@@ -19,7 +19,7 @@ public class Address {
     private String city;
     private String state;
     private Integer zip;
-    @OneToOne(mappedBy = "primaryAddress", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "primaryaddress", fetch = FetchType.EAGER)
     private Participant participant;  // Foriegn Key is participantId
 
     public Address(String street, String city, String state, Integer zip) {

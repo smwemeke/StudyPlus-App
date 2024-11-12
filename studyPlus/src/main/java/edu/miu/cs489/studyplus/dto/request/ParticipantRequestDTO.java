@@ -8,16 +8,18 @@ import java.time.LocalDate;
 
 public record ParticipantRequestDTO(
         @NotBlank(message = "blank - null - empty are not accepted")
+        Long participantId,
+        @NotBlank(message = "blank - null - empty are not accepted")
         String firstname,
         @NotBlank(message = "blank - null - empty are not accepted")
         String lastname,
         @Size(min = 10, max = 12)
         String phonenumber,
-
         String email,
         @NotBlank(message = "blank - null - empty are not accepted")
         LocalDate dob,
-        @NotBlank(message = "blank - null - empty are not accepted")
-        Address address,
-        LocalDate joinDate) {
+        //@NotBlank(message = "blank - null - empty are not accepted")
+        AddressRequestDTO addressRequestDTO,
+        LocalDate joinDate,
+        StudyRequestDTO studyRequestDTO) {
 }

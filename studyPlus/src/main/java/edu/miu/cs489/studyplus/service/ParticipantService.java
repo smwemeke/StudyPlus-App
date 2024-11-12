@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+//@Service
 public interface ParticipantService {
     Optional<ParticipantResponseDTO> addParticipants(ParticipantRequestDTO participantRequestDTO);
     List<ParticipantRequestDTO> getAllParticipants();

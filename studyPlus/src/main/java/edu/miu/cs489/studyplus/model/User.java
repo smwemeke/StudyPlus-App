@@ -1,6 +1,6 @@
 package edu.miu.cs489.studyplus.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +10,31 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-@Getter
+
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "user_id")
+    private Long userId;
     private String firstname;
     private String lastname;
     private String phonenumber;
     private String email;
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
