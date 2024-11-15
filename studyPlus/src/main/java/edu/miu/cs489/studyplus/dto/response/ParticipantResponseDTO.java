@@ -1,6 +1,7 @@
 package edu.miu.cs489.studyplus.dto.response;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record ParticipantResponseDTO(
         String firstname,
@@ -9,6 +10,8 @@ public record ParticipantResponseDTO(
         String email,
         AddressResponseDTO addressResponseDTO,
         LocalDate joinDate,
-        StudyResponseDTO studyResponseDTO
+        List<StudyResponseDTO> studyResponseDTO
+
+
 ){
 }

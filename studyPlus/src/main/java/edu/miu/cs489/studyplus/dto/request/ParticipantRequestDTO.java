@@ -1,14 +1,15 @@
 package edu.miu.cs489.studyplus.dto.request;
 
-import edu.miu.cs489.studyplus.model.Address;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record ParticipantRequestDTO(
-        @NotBlank(message = "blank - null - empty are not accepted")
-        Long participantId,
+       @NotNull(message = "blank - null - empty are not accepted")
+        String username,
         @NotBlank(message = "blank - null - empty are not accepted")
         String firstname,
         @NotBlank(message = "blank - null - empty are not accepted")
@@ -16,10 +17,10 @@ public record ParticipantRequestDTO(
         @Size(min = 10, max = 12)
         String phonenumber,
         String email,
-        @NotBlank(message = "blank - null - empty are not accepted")
+        @NotNull(message = "blank - null - empty are not accepted")
         LocalDate dob,
-        //@NotBlank(message = "blank - null - empty are not accepted")
         AddressRequestDTO addressRequestDTO,
+        @NotNull(message = "blank - null - empty are not accepted")
         LocalDate joinDate,
-        StudyRequestDTO studyRequestDTO) {
+        List<StudyRequestDTO> studyRequestDTO) {
 }

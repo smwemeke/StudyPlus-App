@@ -2,15 +2,19 @@ package edu.miu.cs489.studyplus.service;
 
 import edu.miu.cs489.studyplus.dto.request.ParticipantRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;
 
-//@Service
 public interface ParticipantService {
-    Optional<ParticipantResponseDTO> addParticipants(ParticipantRequestDTO participantRequestDTO);
-    List<ParticipantRequestDTO> getAllParticipants();
-    Optional<ParticipantResponseDTO> findByParticipantId(Integer participantId);
+    Optional<ParticipantResponseDTO> createParticipants(ParticipantRequestDTO participantRequestDTO);
+    List<ParticipantResponseDTO> getAllParticipants();
+    Optional<ParticipantResponseDTO> findParticipantByUsername(String username);
+    void deleteParticipantByUsername(String username);
+
+
+//    Optional<ParticipantResponseDTO> updateParticipant(Long participantId, ParticipantRequestDTO participantRequestDTO);
+//    Optional<ParticipantResponseDTO> updateParticipantPartially(Long participantId, ParticipantRequestDTO participantRequestDTO);
 
 }

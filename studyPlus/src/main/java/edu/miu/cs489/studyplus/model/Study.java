@@ -31,16 +31,10 @@ public class Study {
         this.studySponsor = studySponsor;
     }
 
-
     @OneToMany(mappedBy = "study")
     private List<Notification> notification;//Study -----<- Notification
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "study_participant",
-            joinColumns = @JoinColumn(name = "study_id"),
-            inverseJoinColumns = @JoinColumn(name = "participant_id")
-    )
+    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER, mappedBy = "study")
     private List<Participant> participant;
 
     @OneToOne(mappedBy = "study", fetch = FetchType.EAGER)

@@ -15,17 +15,22 @@ import java.util.List;
 @Setter
 @Getter
 public class Participant extends User{
-
-   @Column(name = "participant_id",unique = true)
-    private Long participantId;
+//
+   @Column(name = "username",unique = true)
+    private String username;
 
     private LocalDate dob;
 
-    @OneToOne(cascade = CascadeType.MERGE, fetch =  FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch =  FetchType.EAGER)
     @JoinColumn(name= "address_id")
-    private Address primaryaddress;
+    private Address address;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "participant")
+ @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+ @JoinTable(
+         name = "study_participant",
+         joinColumns = @JoinColumn(name = "study_id"),
+         inverseJoinColumns = @JoinColumn(name = "user_id")
+ )
     private List<Study> study;
     private LocalDate joinDate;
 

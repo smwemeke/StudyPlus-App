@@ -19,8 +19,8 @@ public class Address {
     private String city;
     private String state;
     private Integer zip;
-    @OneToOne(mappedBy = "primaryaddress", fetch = FetchType.EAGER)
-    private Participant participant;  // Foriegn Key is participantId
+//    @OneToOne(mappedBy = "address", fetch = FetchType.EAGER)
+//    private Participant participant;  // Foriegn Key is participantId
 
     public Address(String street, String city, String state, Integer zip) {
         this.street = street;
