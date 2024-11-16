@@ -54,4 +54,30 @@ public class ParticipantController {
     public void deleteParticipantByUsername(@PathVariable String username){
         participantService.deleteParticipantByUsername(username);
     }
+
+    @PutMapping
+    public ResponseEntity<ParticipantResponseDTO> updateParticipant(
+            @RequestParam
+            String username,
+            @RequestBody @Valid ParticipantRequestDTO participantRequestDTO){
+        Optional<ParticipantResponseDTO> participantResponseDTO = participantService.updateParticipant(username, participantRequestDTO);
+        if(participantResponseDTO.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(participantResponseDTO.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+
+@PatchMapping("/{username}")
+public ResponseEntity<ParticipantResponseDTO> updateParticipants(
+        @PathVariable String username,
+        @RequestBody @Valid ParticipantRequestDTO participantRequestDTO){
+    Optional<ParticipantResponseDTO> participantResponseDTO = participantService.updateParticipantPartially(username, participantRequestDTO);
+    if(participantResponseDTO.isPresent()){
+        return ResponseEntity.status(HttpStatus.OK).body(participantResponseDTO.get());
+    }
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+}
+
+
 }

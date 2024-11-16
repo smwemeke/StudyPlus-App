@@ -12,9 +12,7 @@ public interface ParticipantService {
     List<ParticipantResponseDTO> getAllParticipants();
     Optional<ParticipantResponseDTO> findParticipantByUsername(String username);
     void deleteParticipantByUsername(String username);
-
-
-//    Optional<ParticipantResponseDTO> updateParticipant(Long participantId, ParticipantRequestDTO participantRequestDTO);
-//    Optional<ParticipantResponseDTO> updateParticipantPartially(Long participantId, ParticipantRequestDTO participantRequestDTO);
+    Optional<ParticipantResponseDTO> updateParticipant(String username, ParticipantRequestDTO participantRequestDTO);
+    Optional<ParticipantResponseDTO> updateParticipantPartially(String username, ParticipantRequestDTO participantRequestDTO);
 
 }
