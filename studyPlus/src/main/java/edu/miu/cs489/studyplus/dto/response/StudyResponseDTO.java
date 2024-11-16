@@ -8,8 +8,5 @@ public record StudyResponseDTO(
         LocalDate startDate,
         LocalDate endDate,
         String studySponsor
-       // CoordinatorResponseDTO coordinatorResponseDTO,
-       // ParticipantResponseDTO participantResponseDTO,
-       // NotificationResponseDTO notificationResponseDTO
 ) {
 }

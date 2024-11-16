@@ -4,12 +4,10 @@ import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
 import edu.miu.cs489.studyplus.model.Study;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Function;
-
 @Service
-public class StudyRequestDTOMapper implements Function<StudyRequestDTO, Study> {
-    @Override
-    public Study apply(StudyRequestDTO studyRequest){
+public class StudyRequestMapper {
+
+    public Study toStudy(StudyRequestDTO studyRequest){
         if(studyRequest == null){
             return null;
         }

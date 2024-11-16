@@ -23,14 +23,6 @@ public class Study {
     private LocalDate endDate;
     private String studySponsor;
 
-    public Study(String studyName, String description, LocalDate startDate, LocalDate endDate, String studySponsor) {
-        this.studyName = studyName;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.studySponsor = studySponsor;
-    }
-
     @OneToMany(mappedBy = "study")
     private List<Notification> notification;//Study -----<- Notification
 
@@ -39,6 +31,16 @@ public class Study {
 
     @OneToOne(mappedBy = "study", fetch = FetchType.EAGER)
     private Coordinator coordinator;
+
+
+    public Study(String studyName, String description, LocalDate startDate, LocalDate endDate, String studySponsor) {
+        this.studyName = studyName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.studySponsor = studySponsor;
+    }
+
 
     @Override
     public String toString() {

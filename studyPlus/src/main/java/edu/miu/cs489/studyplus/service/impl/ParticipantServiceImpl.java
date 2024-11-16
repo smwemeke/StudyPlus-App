@@ -1,13 +1,12 @@
 package edu.miu.cs489.studyplus.service.impl;
 
-import edu.miu.cs489.studyplus.dto.mapper.AddressResponseDTOMapper;
-import edu.miu.cs489.studyplus.dto.mapper.StudyRequestDTOMapper;
-import edu.miu.cs489.studyplus.dto.mapper.StudyResponseDTOMapper;
+import edu.miu.cs489.studyplus.dto.mapper.AddressResponseMapper;
+import edu.miu.cs489.studyplus.dto.mapper.StudyRequestMapper;
+import edu.miu.cs489.studyplus.dto.mapper.StudyResponseMapper;
 import edu.miu.cs489.studyplus.dto.request.ParticipantRequestDTO;
 import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.AddressResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
-import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
 import edu.miu.cs489.studyplus.exception.UserNotFoundException;
 import edu.miu.cs489.studyplus.model.Address;
 import edu.miu.cs489.studyplus.model.Participant;
@@ -29,14 +28,15 @@ import static edu.miu.cs489.studyplus.util.Message.USER_NOT_FOUND;
 @RequiredArgsConstructor
 public class ParticipantServiceImpl implements ParticipantService {
     private final ParticipantRepository participantRepository;
-    private final StudyResponseDTOMapper studyResponseDTOMapper;
-    private  final StudyRequestDTOMapper studyRequestDTOMapper;
+    private final StudyResponseMapper studyResponseMapper;
+    private  final StudyRequestMapper studyRequestMapper;
+    private final AddressResponseMapper addressResponseMapper;
 
     @Override
     public Optional<ParticipantResponseDTO> createParticipants(ParticipantRequestDTO participantRequestDTO) {
 
         List<Study> studyList = participantRequestDTO.studyRequestDTO().stream()
-                .map(studyRequestDTOMapper)
+                .map(studyRequestMapper::toStudy)
                 .collect(Collectors.toList());
 
         List<StudyRequestDTO> studies = participantRequestDTO.studyRequestDTO();
@@ -87,12 +87,11 @@ public class ParticipantServiceImpl implements ParticipantService {
                         ),
                         savedParticipant.getJoinDate(),
                                 savedStudies.stream()
-                                        .map( studyResponseDTOMapper)
+                                        .map(studyResponseMapper::toStudyResponseDTO)
                                         .collect(Collectors.toList())
                 );
         return Optional.of(participantResponseDTO);
     }
-
     @Override
     public List<ParticipantResponseDTO> getAllParticipants() {
         List<Participant> participants = participantRepository.findAll();
@@ -102,10 +101,10 @@ public class ParticipantServiceImpl implements ParticipantService {
                         participant.getLastname(),
                         participant.getPhonenumber(),
                         participant.getEmail(),
-                        AddressResponseDTOMapper.toDTO(participant.getAddress()),
+                        addressResponseMapper.toDTO(participant.getAddress()),
                         participant.getJoinDate(),
                         participant.getStudy().stream()
-                                .map(studyResponseDTOMapper)
+                                .map(studyResponseMapper::toStudyResponseDTO)
                                 .collect(Collectors.toList())
 
                         ))
@@ -122,18 +121,17 @@ public class ParticipantServiceImpl implements ParticipantService {
                             foundParticipant.get().getLastname(),
                             foundParticipant.get().getPhonenumber(),
                             foundParticipant.get().getEmail(),
-                            foundParticipant.map(participant -> AddressResponseDTOMapper.toDTO(participant.getAddress()))
+                            foundParticipant.map(participant -> addressResponseMapper.toDTO(participant.getAddress()))
                                     .orElse(null),
                             foundParticipant.get().getJoinDate(),
                             foundParticipant.get().getStudy().stream()
-                                    .map(studyResponseDTOMapper)
+                                    .map(studyResponseMapper::toStudyResponseDTO)
                                     .toList()
                     );
             return Optional.of(participantResponseDTO);
         }
         throw new UserNotFoundException(username + " " + USER_NOT_FOUND);
     }
-
     @Override
     @Transactional
     public void deleteParticipantByUsername(String username) {
@@ -189,10 +187,10 @@ public class ParticipantServiceImpl implements ParticipantService {
                     updatedParticipant.getLastname(),
                     updatedParticipant.getPhonenumber(),
                     updatedParticipant.getEmail(),
-                    AddressResponseDTOMapper.toDTO(updatedParticipant.getAddress()),
+                    addressResponseMapper.toDTO(updatedParticipant.getAddress()),
                     updatedParticipant.getJoinDate(),
                     updatedParticipant.getStudy().stream()
-                                    .map(studyResponseDTOMapper)
+                                    .map(studyResponseMapper::toStudyResponseDTO)
                                     .collect(Collectors.toList())
             ));
         }
@@ -217,10 +215,10 @@ public class ParticipantServiceImpl implements ParticipantService {
                             updatedParticipant.getLastname(),
                             updatedParticipant.getPhonenumber(),
                             updatedParticipant.getEmail(),
-                            AddressResponseDTOMapper.toDTO(updatedParticipant.getAddress()),
+                            addressResponseMapper.toDTO(updatedParticipant.getAddress()),
                             updatedParticipant.getJoinDate(),
                             updatedParticipant.getStudy().stream()
-                                    .map(studyResponseDTOMapper)
+                                    .map(studyResponseMapper::toStudyResponseDTO)
                                     .collect(Collectors.toList())
             ));
         }else {
@@ -228,4 +226,3 @@ public class ParticipantServiceImpl implements ParticipantService {
         }
     }
 }
-

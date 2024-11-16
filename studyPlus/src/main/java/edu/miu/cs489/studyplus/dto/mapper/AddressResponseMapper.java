@@ -2,9 +2,11 @@ package edu.miu.cs489.studyplus.dto.mapper;
 
 import edu.miu.cs489.studyplus.dto.response.AddressResponseDTO;
 import edu.miu.cs489.studyplus.model.Address;
+import org.springframework.stereotype.Service;
 
-public class AddressResponseDTOMapper {
-    public static AddressResponseDTO toDTO(Address address){
+@Service
+public class AddressResponseMapper {
+    public AddressResponseDTO toDTO(Address address){
         if(address == null){
             return null;
         }
