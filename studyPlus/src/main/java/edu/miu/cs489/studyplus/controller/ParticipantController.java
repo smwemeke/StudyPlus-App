@@ -79,5 +79,4 @@ public ResponseEntity<ParticipantResponseDTO> updateParticipants(
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 }
 
-
 }
