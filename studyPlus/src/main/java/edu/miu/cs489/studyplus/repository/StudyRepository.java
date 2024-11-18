@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface StudyRepository extends JpaRepository<Study, Integer> {
     Optional<Study> findStudyByStudyName(String studyName);
-    void deleteStudyByStudyId(Integer studyId);
+    void deleteStudyByStudyName(String studyName);
 }

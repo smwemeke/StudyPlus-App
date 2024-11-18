@@ -143,7 +143,6 @@ public class ParticipantServiceImpl implements ParticipantService {
             throw new UserNotFoundException(username + " " + USER_NOT_FOUND);
         }
     }
-
     @Override
     public Optional<ParticipantResponseDTO> updateParticipant(String username, ParticipantRequestDTO participantRequestDTO) {
 

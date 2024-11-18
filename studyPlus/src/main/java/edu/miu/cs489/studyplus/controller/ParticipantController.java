@@ -2,6 +2,7 @@ package edu.miu.cs489.studyplus.controller;
 
 import edu.miu.cs489.studyplus.dto.request.ParticipantRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
+import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
 import edu.miu.cs489.studyplus.model.Participant;
 import edu.miu.cs489.studyplus.repository.ParticipantRepository;
 import edu.miu.cs489.studyplus.service.ParticipantService;
@@ -51,10 +52,13 @@ public class ParticipantController {
     }
 
     @DeleteMapping("/{username}")
-    public void deleteParticipantByUsername(@PathVariable String username){
-        participantService.deleteParticipantByUsername(username);
+    public ResponseEntity<Void> deleteParticipantByUsername(@PathVariable String username){
+        Optional<ParticipantResponseDTO> participantResponseDTO = participantService.findParticipantByUsername(username);
+        if(participantResponseDTO.isPresent()){
+            participantService.deleteParticipantByUsername(username);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
-
     @PutMapping
     public ResponseEntity<ParticipantResponseDTO> updateParticipant(
             @RequestParam
@@ -66,10 +70,8 @@ public class ParticipantController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
-
-
-@PatchMapping("/{username}")
-public ResponseEntity<ParticipantResponseDTO> updateParticipants(
+    @PatchMapping("/{username}")
+    public ResponseEntity<ParticipantResponseDTO> updateParticipantsPartially(
         @PathVariable String username,
         @RequestBody @Valid ParticipantRequestDTO participantRequestDTO){
     Optional<ParticipantResponseDTO> participantResponseDTO = participantService.updateParticipantPartially(username, participantRequestDTO);
@@ -78,5 +80,4 @@ public ResponseEntity<ParticipantResponseDTO> updateParticipants(
     }
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 }
-
 }

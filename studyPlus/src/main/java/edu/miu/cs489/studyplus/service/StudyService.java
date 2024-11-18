@@ -12,8 +12,7 @@ public interface StudyService {
     Optional<StudyResponseDTO> createStudy(StudyRequestDTO studyRequestDTO);
     List<StudyResponseDTO> getAllStudies();
      Optional<StudyResponseDTO> findStudyByName(String studyName);
-    void deleteStudyByStudyId(Integer studyId);
-//    Optional<StudyResponseDTO> updateStudy(String studyName, StudyRequestDTO studyRequestDTO);
-//    Optional<StudyResponseDTO> updateStudyPartially(String studyName, StudyRequestDTO studyRequestDTO);
-
+    void deleteStudyByStudyName(String studyName);
+    Optional<StudyResponseDTO> updateStudy(String studyName, StudyRequestDTO studyRequestDTO);
+    Optional<StudyResponseDTO> updateStudyPartially(String studyName, StudyRequestDTO studyRequestDTO);
 }

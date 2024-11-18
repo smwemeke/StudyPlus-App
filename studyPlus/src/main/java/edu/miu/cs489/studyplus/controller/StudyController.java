@@ -39,9 +39,13 @@ public class StudyController {
         List<StudyResponseDTO>allStudies = studyService.getAllStudies();
         return ResponseEntity.status(HttpStatus.OK).body(allStudies);
     }
-    @DeleteMapping("/{studyId}")
-    public void deleteStudy(@PathVariable Integer studyId){
-        studyService.deleteStudyByStudyId(studyId);
+    @DeleteMapping("/{studyName}")
+    public ResponseEntity<Void> deleteStudy(@PathVariable String studyName) {
+        Optional<StudyResponseDTO> studyResponseDTO = studyService.findStudyByName(studyName);
+        if (studyResponseDTO.isPresent()) {
+            studyService.deleteStudyByStudyName(studyName);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
     @GetMapping("/{studyName}")
     public ResponseEntity<StudyResponseDTO> findStudyByStudyName(@PathVariable String studyName){
@@ -49,6 +53,26 @@ public class StudyController {
         if(studyResponseDTO.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(studyResponseDTO.get());
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+    @PutMapping("/{studyName}")
+    public ResponseEntity<StudyResponseDTO> updateStudy(
+            @PathVariable String studyName,
+            @RequestBody @Valid StudyRequestDTO studyRequestDTO
+    ){
+       Optional<StudyResponseDTO> studyResponseDTO1 = studyService.updateStudy(studyName, studyRequestDTO);
+        if (studyResponseDTO1.isPresent()) {
+
+            return ResponseEntity.status(HttpStatus.OK).body(studyResponseDTO1.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+       }
+    @PatchMapping
+    public ResponseEntity<StudyResponseDTO> updateStudyPartially(
+            @RequestParam String studyName,
+            @RequestBody StudyRequestDTO studyRequestDTO
+    ){
+        Optional<StudyResponseDTO> studyResponseDTO = studyService.updateStudy(studyName, studyRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(studyResponseDTO.get());
     }
 }
