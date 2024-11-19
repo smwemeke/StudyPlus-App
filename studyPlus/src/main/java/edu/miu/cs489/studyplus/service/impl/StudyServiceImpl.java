@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static edu.miu.cs489.studyplus.util.Message.USER_NOT_FOUND;
 
@@ -48,7 +47,7 @@ public class StudyServiceImpl implements StudyService {
                         study.getEndDate(),
                         study.getStudySponsor()
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -110,7 +109,6 @@ public class StudyServiceImpl implements StudyService {
                 savedStudy.setEndDate(studyRequestDTO.endDate());
             }
             Study updatedStudy = studyRepository.save(savedStudy);
-            System.out.println(updatedStudy);
             return Optional.of(
                     new StudyResponseDTO(
                             updatedStudy.getStudyName(),

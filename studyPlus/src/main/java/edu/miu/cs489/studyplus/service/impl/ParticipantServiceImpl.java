@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static edu.miu.cs489.studyplus.util.Message.USER_NOT_FOUND;
 
@@ -37,7 +36,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         List<Study> studyList = participantRequestDTO.studyRequestDTO().stream()
                 .map(studyRequestMapper::toStudy)
-                .collect(Collectors.toList());
+                .toList();
 
         List<StudyRequestDTO> studies = participantRequestDTO.studyRequestDTO();
         for (StudyRequestDTO requestDTO : studies) {
@@ -88,7 +87,7 @@ public class ParticipantServiceImpl implements ParticipantService {
                         savedParticipant.getJoinDate(),
                                 savedStudies.stream()
                                         .map(studyResponseMapper::toStudyResponseDTO)
-                                        .collect(Collectors.toList())
+                                        .toList()
                 );
         return Optional.of(participantResponseDTO);
     }
@@ -105,10 +104,9 @@ public class ParticipantServiceImpl implements ParticipantService {
                         participant.getJoinDate(),
                         participant.getStudy().stream()
                                 .map(studyResponseMapper::toStudyResponseDTO)
-                                .collect(Collectors.toList())
-
+                                .toList()
                         ))
-                .collect(Collectors.toList());
+                .toList();
         }
 
     @Override
@@ -190,7 +188,7 @@ public class ParticipantServiceImpl implements ParticipantService {
                     updatedParticipant.getJoinDate(),
                     updatedParticipant.getStudy().stream()
                                     .map(studyResponseMapper::toStudyResponseDTO)
-                                    .collect(Collectors.toList())
+                            .toList()
             ));
         }
         throw new UserNotFoundException(username + " " + USER_NOT_FOUND);
@@ -218,7 +216,7 @@ public class ParticipantServiceImpl implements ParticipantService {
                             updatedParticipant.getJoinDate(),
                             updatedParticipant.getStudy().stream()
                                     .map(studyResponseMapper::toStudyResponseDTO)
-                                    .collect(Collectors.toList())
+                                    .toList()
             ));
         }else {
             throw new UserNotFoundException(username + " not found");
