@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public record StudyRequestDTO(
-        @NotBlank(message = "blank - null - empty are not accepted")
+        //@NotBlank(message = "blank - null - empty are not accepted")
         String studyName,
         String description,
         LocalDate startDate,

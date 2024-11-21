@@ -122,4 +122,6 @@ public class StudyServiceImpl implements StudyService {
             throw new UserNotFoundException(studyName + " " + USER_NOT_FOUND);
         }
     }
+
+
 }

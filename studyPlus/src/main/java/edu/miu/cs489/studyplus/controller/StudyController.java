@@ -73,6 +73,11 @@ public class StudyController {
             @RequestBody StudyRequestDTO studyRequestDTO
     ){
         Optional<StudyResponseDTO> studyResponseDTO = studyService.updateStudy(studyName, studyRequestDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(studyResponseDTO.get());
+        if(studyResponseDTO.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(studyResponseDTO.get());
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }
