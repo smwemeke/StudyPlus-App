@@ -1,6 +1,5 @@
 package edu.miu.cs489.studyplus.service.impl;
 
-import com.fasterxml.jackson.annotation.OptBoolean;
 import edu.miu.cs489.studyplus.dto.mapper.StudyRequestMapper;
 import edu.miu.cs489.studyplus.dto.mapper.StudyResponseMapper;
 import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
@@ -14,11 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
