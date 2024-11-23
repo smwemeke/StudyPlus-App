@@ -9,33 +9,41 @@
 <body>
 <div class="container mt-5">
     <h1>Register New Study</h1>
-    <form th:action="@{/studies}" method="post">
+    <form th:action="@{/studies}" th:object="${study}" method="post">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name" th:value="${study.studyName}">
+            <input type="text" class="form-control" id="name" name="studyName" th:value="${study.studyName}"required>
+            <div class="text-danger" th:if="${#fields.hasErrors('studyName')}">
+                <span th:errors="*{studyName}"></span>
+            </div>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description" th:value="${study.description}"></textarea>
+            <textarea class="form-control" id="description" name="description" th:value="${study.description}" required></textarea>
+            <div class="text-danger" th:if="${#fields.hasErrors('description')}">
+                <span th:errors="*{description}"></span>
+            </div>
         </div>
         <div class="form-group">
             <label for="startdate">Start Date</label>
-            <input
-                    type="text"
-                    class="form-control"
-                    id="startdate"
-                    name="startDate"
-                    th:field="*{startDate}"
-            />
+            <input type="date" id="startDate" class="form-control" th:field="*{startDate}" required />
+            <div class="text-danger" th:if="${#fields.hasErrors('startDate')}">
+                <span th:errors="*{startDate}"></span>
+            </div>
         </div>
-
         <div class="form-group">
             <label for="enddate">End Date</label>
-            <textarea class="form-control" id="enddate" name="enddate" th:value="${study.endDate}"></textarea>
+            <input type="date" id="endDate" class="form-control"  name="endDate" th:field="*{endDate}" required/>
+            <div class="text-danger" th:if="${#fields.hasErrors('endDate')}">
+                <span th:errors="*{endDate}"></span>
+            </div>
         </div>
         <div class="form-group">
             <label for="sponsor">Study Sponsor</label>
-            <textarea class="form-control" id="sponsor" name="sponsor" th:value="${study.studySponsor}"></textarea>
+            <textarea class="form-control" id="sponsor" name="studySponsor" th:value="${study.studySponsor}" required></textarea>
+            <div class="text-danger" th:if="${#fields.hasErrors('studySponsor')}">
+                <span th:errors="*{studySponsor}"></span>
+            </div>
         </div>
         <button type="submit" class="btn btn-success mt-3">Create</button>
     </form>
@@ -44,8 +52,15 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        flatpickr("#enddate", {
+            dateFormat: "m-d-Y", // Matches @DateTimeFormat pattern
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
         flatpickr("#startdate", {
-            dateFormat: "Y-m-d", // Matches @DateTimeFormat pattern
+            dateFormat: "m-d-Y", // Matches @DateTimeFormat pattern
         });
     });
 </script>

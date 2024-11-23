@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class StudyController2 {
 
         private final StudyService studyService;
+        //String result = "redirect:/studies";
 
         @GetMapping
         public String getAllStudies(Model model) {
@@ -25,29 +28,16 @@ public class StudyController2 {
             model.addAttribute("studies", studies);
             return "study-list";
         }
-    @Controller
-    @RequestMapping("/studies")
-    public class StudyWebController {
 
-        private final StudyService studyService;
-
-        public StudyWebController(StudyService studyService) {
-            this.studyService = studyService;
+        @GetMapping(value = "/create")
+        public ModelAndView createStudyForm() {
+            StudyRequestDTO studyRequestDTO = new StudyRequestDTO(
+                    "", "", null, null, ""
+            );
+            ModelAndView mav = new ModelAndView("study-create");
+            mav.addObject("study", studyRequestDTO);
+            return mav;
         }
-
-        @GetMapping("/create")
-        public String createStudyForm(Model model) {
-            model.addAttribute("study", new StudyRequestDTO(
-                    "", // Placeholder values for the record fields
-                    "",
-                    null,
-                    null,
-                    ""
-            ));
-            return "study-create"; // This should match the template name in the templates folder
-        }
-    }
-
 
         @PostMapping
         public String createStudy(@ModelAttribute("study") @Valid StudyRequestDTO studyRequestDTO) {
@@ -55,31 +45,21 @@ public class StudyController2 {
             return "redirect:/studies";
         }
 
-        @GetMapping("/{studyName}")
-        public String viewStudy(@PathVariable String studyName, Model model) {
-            Optional<StudyResponseDTO> study = studyService.findStudyByName(studyName);
-            if (study.isPresent()) {
-                model.addAttribute("study", study.get());
-            }
-            return "study-view";
-        }
-
-        @GetMapping("/edit/{studyName}")
-        public String editStudyForm(@PathVariable String studyName, Model model) {
+        @GetMapping("/update/{studyName}")
+        public String updateStudyForm(@PathVariable String studyName, Model model) {
             Optional<StudyResponseDTO> study = studyService.findStudyByName(studyName);
             study.ifPresent(value -> model.addAttribute("study", value));
-            return "study-edit";
+            return "study-update";
         }
-
-        @PostMapping("/edit/{studyName}")
-        public String editStudy(@PathVariable String studyName, @ModelAttribute("study") @Valid StudyRequestDTO studyRequestDTO) {
+        @PostMapping("/update/{studyName}")
+        public String updateStudy(@PathVariable String studyName, @ModelAttribute("study") @Valid StudyRequestDTO studyRequestDTO) {
             studyService.updateStudy(studyName, studyRequestDTO);
             return "redirect:/studies";
         }
-
         @PostMapping("/delete/{studyName}")
-        public String deleteStudy(@PathVariable String studyName) {
+        public String deleteStudy(@PathVariable String studyName, RedirectAttributes redirectAttributes) {
             studyService.deleteStudyByStudyName(studyName);
+            redirectAttributes.addFlashAttribute("message", "Study deleted successfully!");
             return "redirect:/studies";
         }
-    }
+}
