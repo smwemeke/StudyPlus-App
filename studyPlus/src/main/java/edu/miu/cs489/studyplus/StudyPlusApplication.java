@@ -21,7 +21,6 @@ import java.util.List;
 public class StudyPlusApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(StudyPlusApplication.class, args);
 	}
 }

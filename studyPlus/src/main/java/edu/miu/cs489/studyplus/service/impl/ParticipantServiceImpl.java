@@ -4,15 +4,18 @@ import edu.miu.cs489.studyplus.dto.mapper.AddressResponseMapper;
 import edu.miu.cs489.studyplus.dto.mapper.StudyRequestMapper;
 import edu.miu.cs489.studyplus.dto.mapper.StudyResponseMapper;
 import edu.miu.cs489.studyplus.dto.request.ParticipantRequestDTO;
-import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.AddressResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
+import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
 import edu.miu.cs489.studyplus.exception.UserNotFoundException;
+import edu.miu.cs489.studyplus.exception.ValueAlreadyExistsException;
 import edu.miu.cs489.studyplus.model.Address;
 import edu.miu.cs489.studyplus.model.Participant;
 import edu.miu.cs489.studyplus.model.Study;
 import edu.miu.cs489.studyplus.repository.ParticipantRepository;
+import edu.miu.cs489.studyplus.repository.StudyRepository;
 import edu.miu.cs489.studyplus.service.ParticipantService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,21 +33,14 @@ public class ParticipantServiceImpl implements ParticipantService {
     private final StudyResponseMapper studyResponseMapper;
     private  final StudyRequestMapper studyRequestMapper;
     private final AddressResponseMapper addressResponseMapper;
+    private final StudyRepository studyRepository;
 
     @Override
     public Optional<ParticipantResponseDTO> createParticipants(ParticipantRequestDTO participantRequestDTO) {
 
-        List<Study> studyList = participantRequestDTO.studyRequestDTO().stream()
-                .map(studyRequestMapper::toStudy)
-                .toList();
-
-        List<StudyRequestDTO> studies = participantRequestDTO.studyRequestDTO();
-        for (StudyRequestDTO requestDTO : studies) {
-            requestDTO.studyName();
-            requestDTO.description();
-            requestDTO.startDate();
-            requestDTO.endDate();
-            requestDTO.studySponsor();
+        // Check if username already exists
+        if (participantRepository.existsByUsername(participantRequestDTO.username())) {
+            throw new ValueAlreadyExistsException("Username already exists: " + participantRequestDTO.username());
         }
 
         // Create Participant
@@ -62,15 +58,14 @@ public class ParticipantServiceImpl implements ParticipantService {
                         participantRequestDTO.addressRequestDTO().state(),
                         participantRequestDTO.addressRequestDTO().street(),
                         participantRequestDTO.addressRequestDTO().zip()));
-        newParticipant.setStudy(studyList);
 
         Participant savedParticipant = participantRepository.save(newParticipant);
 
         // Get the address object first
         Address savedAddress = savedParticipant.getAddress();
-        // Get the study object first
-        List<Study> savedStudies = savedParticipant.getStudy();
 
+        // create List of StudyResponseDTO
+        List<StudyResponseDTO> responseDTOList = new ArrayList<>();
         // create participant responseDTO
         ParticipantResponseDTO participantResponseDTO =
                 new ParticipantResponseDTO(
@@ -85,14 +80,15 @@ public class ParticipantServiceImpl implements ParticipantService {
                                 savedAddress.getZip()
                         ),
                         savedParticipant.getJoinDate(),
-                                savedStudies.stream()
-                                        .map(studyResponseMapper::toStudyResponseDTO)
-                                        .toList()
+                        responseDTOList
                 );
         return Optional.of(participantResponseDTO);
+
     }
     @Override
     public List<ParticipantResponseDTO> getAllParticipants() {
+        // create List of StudyResponseDTO
+        List<StudyResponseDTO> responseDTOList = new ArrayList<>();
         List<Participant> participants = participantRepository.findAll();
         return participants.stream()
                 .map(participant -> new ParticipantResponseDTO(
@@ -102,17 +98,17 @@ public class ParticipantServiceImpl implements ParticipantService {
                         participant.getEmail(),
                         addressResponseMapper.toDTO(participant.getAddress()),
                         participant.getJoinDate(),
-                        participant.getStudy().stream()
-                                .map(studyResponseMapper::toStudyResponseDTO)
-                                .toList()
+                        responseDTOList
                         ))
                 .toList();
         }
 
     @Override
     public Optional<ParticipantResponseDTO> findParticipantByUsername(String username) {
+
         Optional<Participant> foundParticipant = participantRepository.findParticipantByUsername(username);
         if (foundParticipant.isPresent()) {
+            List<StudyResponseDTO> responseDTOList = new ArrayList<>();
             ParticipantResponseDTO participantResponseDTO =
                     new ParticipantResponseDTO(
                             foundParticipant.get().getFirstname(),
@@ -122,9 +118,7 @@ public class ParticipantServiceImpl implements ParticipantService {
                             foundParticipant.map(participant -> addressResponseMapper.toDTO(participant.getAddress()))
                                     .orElse(null),
                             foundParticipant.get().getJoinDate(),
-                            foundParticipant.get().getStudy().stream()
-                                    .map(studyResponseMapper::toStudyResponseDTO)
-                                    .toList()
+                           responseDTOList
                     );
             return Optional.of(participantResponseDTO);
         }
@@ -138,12 +132,13 @@ public class ParticipantServiceImpl implements ParticipantService {
         if (foundParticipant.isPresent()) {
             participantRepository.deleteParticipantByUsername(username);
         } else {
-            throw new UserNotFoundException(username + " " + USER_NOT_FOUND);
+            throw new UserNotFoundException(username + " " );
         }
     }
     @Override
     public Optional<ParticipantResponseDTO> updateParticipant(String username, ParticipantRequestDTO participantRequestDTO) {
-
+        Participant foundParticipant = participantRepository.findParticipantByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(("Participant  with username: " + username + " not found")));
         // Create address
         Address address = new Address();
         address.setState(participantRequestDTO.addressRequestDTO().state());
@@ -151,62 +146,51 @@ public class ParticipantServiceImpl implements ParticipantService {
         address.setStreet(participantRequestDTO.addressRequestDTO().street());
         address.setCity(participantRequestDTO.addressRequestDTO().city());
 
-        List<StudyRequestDTO> studyRequestDTOList = participantRequestDTO.studyRequestDTO();
-        List<Study> studies  = new ArrayList<>();
+        foundParticipant.setUsername(participantRequestDTO.username());
+        foundParticipant.setPhonenumber(participantRequestDTO.phonenumber());
+        foundParticipant.setEmail(participantRequestDTO.email());
+        foundParticipant.setLastname(participantRequestDTO.lastname());
+        foundParticipant.setFirstname(participantRequestDTO.firstname());
+        foundParticipant.setDob(participantRequestDTO.dob());
+        foundParticipant.setAddress(address);
+        foundParticipant.setJoinDate(participantRequestDTO.joinDate());
 
-        for(StudyRequestDTO requestDTO :studyRequestDTOList){
-            Study study = new Study();
-            study.setStudyName(requestDTO.studyName());
-            study.setDescription(requestDTO.description());
-            study.setStudySponsor(requestDTO.studySponsor());
-            study.setStartDate(requestDTO.startDate());
-            study.setEndDate(requestDTO.endDate());
 
-            studies.add(study);
-        }
+            Participant updatedParticipant = participantRepository.save(foundParticipant);
+            List<StudyResponseDTO> responseDTOList = new ArrayList<>();
 
-        Optional<Participant> foundParticipant = participantRepository.findParticipantByUsername(username);
-        if (foundParticipant.isPresent()) {
-            Participant participant = foundParticipant.get();
-            participant.setUsername(participantRequestDTO.username());
-            participant.setPhonenumber(participantRequestDTO.phonenumber());
-            participant.setEmail(participantRequestDTO.email());
-            participant.setLastname(participantRequestDTO.lastname());
-            participant.setFirstname(participantRequestDTO.firstname());
-            participant.setDob(participantRequestDTO.dob());
-            participant.setAddress(address);
-            participant.setJoinDate(participantRequestDTO.joinDate());
-            participant.setStudy(studies);
-
-            Participant updatedParticipant = participantRepository.save(participant);
-            return Optional.of(new ParticipantResponseDTO(
+        return Optional.of(new ParticipantResponseDTO(
                     updatedParticipant.getFirstname(),
                     updatedParticipant.getLastname(),
                     updatedParticipant.getPhonenumber(),
                     updatedParticipant.getEmail(),
                     addressResponseMapper.toDTO(updatedParticipant.getAddress()),
                     updatedParticipant.getJoinDate(),
-                    updatedParticipant.getStudy().stream()
-                                    .map(studyResponseMapper::toStudyResponseDTO)
-                            .toList()
+                    responseDTOList
             ));
         }
-        throw new UserNotFoundException(username + " " + USER_NOT_FOUND);
-    }
 
     @Override
     @Transactional
     public Optional<ParticipantResponseDTO> updateParticipantPartially(String username, ParticipantRequestDTO participantRequestDTO) {
-        Optional<Participant> foundParticipant = participantRepository.findParticipantByUsername(username);
-        if(foundParticipant.isPresent()){
-            Participant participant = foundParticipant.get();
-            if(participantRequestDTO.phonenumber() != null){
-                participant.setPhonenumber(participantRequestDTO.phonenumber());
+        Participant foundParticipant = participantRepository.findParticipantByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(("Participant  with username: " + username + " not found")));
+        if(participantRequestDTO.firstname() != null){
+            foundParticipant.setFirstname(participantRequestDTO.firstname());
+        }
+        if(participantRequestDTO.lastname() != null){
+            foundParticipant.setLastname(participantRequestDTO.lastname());
+        }
+        if(participantRequestDTO.phonenumber() != null){
+                foundParticipant.setPhonenumber(participantRequestDTO.phonenumber());
             }
-            if(participantRequestDTO.email() != null){
-                participant.setEmail(participantRequestDTO.email());
-            }
-            Participant updatedParticipant = participantRepository.save(participant);
+        if(participantRequestDTO.email() != null){
+            foundParticipant.setEmail(participantRequestDTO.email());
+        }
+        if(participantRequestDTO.username() != null){
+                foundParticipant.setUsername(participantRequestDTO.username());
+        }
+            Participant updatedParticipant = participantRepository.save(foundParticipant);
             return Optional.of(new ParticipantResponseDTO(
                             updatedParticipant.getFirstname(),
                             updatedParticipant.getLastname(),
@@ -218,8 +202,44 @@ public class ParticipantServiceImpl implements ParticipantService {
                                     .map(studyResponseMapper::toStudyResponseDTO)
                                     .toList()
             ));
-        }else {
-            throw new UserNotFoundException(username + " not found");
         }
+
+    @Override
+    public ParticipantResponseDTO assignStudies(Long participantId, List<Integer> studyIds) {
+        Participant participant = participantRepository.findById(participantId)
+                .orElseThrow(() -> new EntityNotFoundException(("Participant not found with ID." + participantId)));
+
+        List<Study> studyList = studyRepository.findAllById(studyIds);
+        if(studyList.isEmpty()){
+            throw new EntityNotFoundException("No studies found with provided IDs.");
+        }
+        //Assign studies to the participant
+        studyList.forEach(study -> {
+            if(!participant.getStudy().contains(study)){
+                participant.getStudy().add(study);
+                study.getParticipant().add(participant);
+            }
+        });
+        Participant updatedParticipant = participantRepository.save(participant);
+
+        List<StudyResponseDTO> studyResponseDTOList = studyList.stream()
+                .map(study -> new StudyResponseDTO(
+                        study.getStudyName(),
+                        study.getDescription(),
+                        study.getStartDate(),
+                        study.getEndDate(),
+                        study.getStudySponsor()
+                ))
+                .toList();
+
+                return  new ParticipantResponseDTO(
+                updatedParticipant.getFirstname(),
+                updatedParticipant.getLastname(),
+                updatedParticipant.getPhonenumber(),
+                updatedParticipant.getEmail(),
+                addressResponseMapper.toDTO(updatedParticipant.getAddress()),
+                updatedParticipant.getJoinDate(),
+                studyResponseDTOList
+        );
     }
 }

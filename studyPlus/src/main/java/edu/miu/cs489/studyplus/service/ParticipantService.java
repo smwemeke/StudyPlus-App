@@ -14,5 +14,5 @@ public interface ParticipantService {
     void deleteParticipantByUsername(String username);
     Optional<ParticipantResponseDTO> updateParticipant(String username, ParticipantRequestDTO participantRequestDTO);
     Optional<ParticipantResponseDTO> updateParticipantPartially(String username, ParticipantRequestDTO participantRequestDTO);
-
+    ParticipantResponseDTO assignStudies(Long participantId, List<Integer> studyId);
 }

@@ -15,6 +15,6 @@ public record ParticipantRequestDTO(
         String email,
         LocalDate dob,
         AddressRequestDTO addressRequestDTO,
-        LocalDate joinDate,
-        List<StudyRequestDTO> studyRequestDTO) {
+        LocalDate joinDate)
+{
 }
