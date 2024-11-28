@@ -26,7 +26,7 @@ public class NotifcationServiceImpl implements NotificationService {
     public void sendNotification(NotificationRequestDTO requestDTO) {
 
     // Fetch Study name
-        Study study = studyRepository.findStudyByStudyName(requestDTO.studyRequestDTO().studyName())
+        Study study = studyRepository.findByStudyName(requestDTO.studyRequestDTO().studyName())
                 .orElseThrow(() -> new EntityNotFoundException("Study not found"));
 
         // Fetch Participant name

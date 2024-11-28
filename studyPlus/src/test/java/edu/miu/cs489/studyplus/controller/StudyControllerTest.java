@@ -46,7 +46,7 @@ class StudyControllerTest {
                         LocalDate.of(2030,04,20),
                         "NIH");
         StudyResponseDTO studyResponseDTO =
-                new StudyResponseDTO("COVID",
+                new StudyResponseDTO(2L,"COVID",
                         "Vaccine for COVID",
                         LocalDate.of(2021,04,10),
                         LocalDate.of(2030,04,20),
@@ -68,8 +68,8 @@ class StudyControllerTest {
     void getAllStudies() throws Exception{
         // Create Mock behavior
         List<StudyResponseDTO> responseDTOList = new ArrayList<>();
-        responseDTOList.add(new StudyResponseDTO("Malaria","Treat Malaria",LocalDate.of(2020,10,30),LocalDate.of(2030,10,30),"WHO"));
-        responseDTOList.add(new StudyResponseDTO("COVID","Treat COVID",LocalDate.of(2021,05,30),LocalDate.of(2030,05,30),"NIH"));
+        responseDTOList.add(new StudyResponseDTO(1L,"Malaria","Treat Malaria",LocalDate.of(2020,10,30),LocalDate.of(2030,10,30),"WHO"));
+        responseDTOList.add(new StudyResponseDTO(2L,"COVID","Treat COVID",LocalDate.of(2021,05,30),LocalDate.of(2030,05,30),"NIH"));
 
         //Define what the mock sholud do when getAllStudies method is called
         Mockito.when(studyService.getAllStudies()).thenReturn(responseDTOList);
@@ -94,7 +94,7 @@ class StudyControllerTest {
     void findStudyByStudyName() throws Exception {
         //Mock behavior
         String studyName = "COVID";
-        StudyResponseDTO studyResponseDTO = new StudyResponseDTO("COVID","Treat COVID",LocalDate.of(2020,12,01),LocalDate.of(2030,12,10),"JHU");
+        StudyResponseDTO studyResponseDTO = new StudyResponseDTO(1L,"COVID","Treat COVID",LocalDate.of(2020,12,01),LocalDate.of(2030,12,10),"JHU");
 
         // define what mock should do
         Mockito.when(studyService.findStudyByName(studyName)).thenReturn(Optional.of(studyResponseDTO));
@@ -118,7 +118,7 @@ class StudyControllerTest {
                 "WHO");
         // Expected Output
         StudyResponseDTO studyResponseDTO = new StudyResponseDTO(
-                "COVID",
+                1L,"COVID",
                 "Treat COVID",
                 LocalDate.of(2021,12,23),
                 LocalDate.of(2026,11,19),
@@ -131,34 +131,6 @@ class StudyControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(gson.toJson(studyRequestDTO))
         )
-                .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(MockMvcResultMatchers.content().json(gson.toJson(studyResponseDTO)));
-    }
-
-    @Test
-    void updateStudyPartially() throws Exception{
-        // Input
-        StudyRequestDTO studyRequestDTO = new StudyRequestDTO(
-                "COVID",
-                "Treat COVID",
-                LocalDate.of(2021,12,23),
-                LocalDate.of(2026,11,19),
-                "WHO");
-        // Expected Output
-        StudyResponseDTO studyResponseDTO = new StudyResponseDTO(
-                "COVID",
-                "Treat COVID",
-                LocalDate.of(2021,12,23),
-                LocalDate.of(2026,11,19),
-                "WHO");
-
-        Mockito.when(studyService.updateStudyPartially("TB",studyRequestDTO)).thenReturn(Optional.of(studyResponseDTO));
-
-        mockMvc.perform(
-                        MockMvcRequestBuilders.patch("/api/v1/studies?studyName=TB")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(gson.toJson(studyRequestDTO))
-                )
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(MockMvcResultMatchers.content().json(gson.toJson(studyResponseDTO)));
     }

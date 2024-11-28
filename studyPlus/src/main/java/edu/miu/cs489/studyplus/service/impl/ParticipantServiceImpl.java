@@ -69,6 +69,8 @@ public class ParticipantServiceImpl implements ParticipantService {
         // create participant responseDTO
         ParticipantResponseDTO participantResponseDTO =
                 new ParticipantResponseDTO(
+                        savedParticipant.getUserId(),
+                        savedParticipant.getUsername(),
                         savedParticipant.getFirstname(),
                         savedParticipant.getLastname(),
                         savedParticipant.getPhonenumber(),
@@ -92,6 +94,8 @@ public class ParticipantServiceImpl implements ParticipantService {
         List<Participant> participants = participantRepository.findAll();
         return participants.stream()
                 .map(participant -> new ParticipantResponseDTO(
+                        participant.getUserId(),
+                        participant.getUsername(),
                         participant.getFirstname(),
                         participant.getLastname(),
                         participant.getPhonenumber(),
@@ -111,6 +115,8 @@ public class ParticipantServiceImpl implements ParticipantService {
             List<StudyResponseDTO> responseDTOList = new ArrayList<>();
             ParticipantResponseDTO participantResponseDTO =
                     new ParticipantResponseDTO(
+                            foundParticipant.get().getUserId(),
+                            foundParticipant.get().getUsername(),
                             foundParticipant.get().getFirstname(),
                             foundParticipant.get().getLastname(),
                             foundParticipant.get().getPhonenumber(),
@@ -160,6 +166,8 @@ public class ParticipantServiceImpl implements ParticipantService {
             List<StudyResponseDTO> responseDTOList = new ArrayList<>();
 
         return Optional.of(new ParticipantResponseDTO(
+                updatedParticipant.getUserId(),
+                    updatedParticipant.getUsername(),
                     updatedParticipant.getFirstname(),
                     updatedParticipant.getLastname(),
                     updatedParticipant.getPhonenumber(),
@@ -192,6 +200,8 @@ public class ParticipantServiceImpl implements ParticipantService {
         }
             Participant updatedParticipant = participantRepository.save(foundParticipant);
             return Optional.of(new ParticipantResponseDTO(
+                    updatedParticipant.getUserId(),
+                            updatedParticipant.getUsername(),
                             updatedParticipant.getFirstname(),
                             updatedParticipant.getLastname(),
                             updatedParticipant.getPhonenumber(),
@@ -205,7 +215,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         }
 
     @Override
-    public ParticipantResponseDTO assignStudies(Long participantId, List<Integer> studyIds) {
+    public ParticipantResponseDTO assignStudies(Long participantId, List<Long> studyIds) {
         Participant participant = participantRepository.findById(participantId)
                 .orElseThrow(() -> new EntityNotFoundException(("Participant not found with ID." + participantId)));
 
@@ -224,6 +234,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
         List<StudyResponseDTO> studyResponseDTOList = studyList.stream()
                 .map(study -> new StudyResponseDTO(
+                        study.getStudyId(),
                         study.getStudyName(),
                         study.getDescription(),
                         study.getStartDate(),
@@ -233,13 +244,15 @@ public class ParticipantServiceImpl implements ParticipantService {
                 .toList();
 
                 return  new ParticipantResponseDTO(
-                updatedParticipant.getFirstname(),
-                updatedParticipant.getLastname(),
-                updatedParticipant.getPhonenumber(),
-                updatedParticipant.getEmail(),
-                addressResponseMapper.toDTO(updatedParticipant.getAddress()),
-                updatedParticipant.getJoinDate(),
-                studyResponseDTOList
+                        updatedParticipant.getUserId(),
+                        updatedParticipant.getUsername(),
+                        updatedParticipant.getFirstname(),
+                        updatedParticipant.getLastname(),
+                        updatedParticipant.getPhonenumber(),
+                         updatedParticipant.getEmail(),
+                        addressResponseMapper.toDTO(updatedParticipant.getAddress()),
+                        updatedParticipant.getJoinDate(),
+                        studyResponseDTOList
         );
     }
 }

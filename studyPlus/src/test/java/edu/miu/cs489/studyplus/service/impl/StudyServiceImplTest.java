@@ -56,7 +56,7 @@ class StudyServiceImplTest {
 
         StudyResponseDTO expectedResponse =
                 new StudyResponseDTO(
-                        "SickleCell",
+                        2L,"SickleCell",
                         "Treat disease",
                         LocalDate.of(2021, 11, 23),
                         LocalDate.of(2026, 12, 20),
@@ -96,11 +96,11 @@ class StudyServiceImplTest {
 
         List<StudyResponseDTO> expectedResponseDTO =
         List.of(
-                new StudyResponseDTO( "SickleCell","Treat disease",LocalDate.of(2021, 11, 23),
+                new StudyResponseDTO( 2L,"SickleCell","Treat disease",LocalDate.of(2021, 11, 23),
                         LocalDate.of(2026, 12, 20),"NIH"),
-                new StudyResponseDTO("DiabetesResearch","Exploring new treatments for diabetes",LocalDate.of(2022, 1, 15),
+                new StudyResponseDTO(3L,"DiabetesResearch","Exploring new treatments for diabetes",LocalDate.of(2022, 1, 15),
                         LocalDate.of(2027, 3, 30),"World Health Organization"),
-                new StudyResponseDTO("CancerImmunotherapy","Developing advanced immunotherapy treatments",LocalDate.of(2020, 5, 10),
+                new StudyResponseDTO(4L,"CancerImmunotherapy","Developing advanced immunotherapy treatments",LocalDate.of(2020, 5, 10),
                 LocalDate.of(2025, 8, 25),"National Cancer Institute")
         );
 
@@ -122,10 +122,10 @@ class StudyServiceImplTest {
                 LocalDate.of(2023,12,12),
                 "MOH");
 
-        Mockito.when(studyRepository.findStudyByStudyName(studyName)).thenReturn(Optional.of(exisitingStudy));
+        Mockito.when(studyRepository.findByStudyName(studyName)).thenReturn(Optional.of(exisitingStudy));
         studyService.findStudyByName(studyName);
 
-        Mockito.verify(studyRepository,Mockito.times(1)).findStudyByStudyName(studyName);
+        Mockito.verify(studyRepository,Mockito.times(1)).findByStudyName(studyName);
     }
     @Test
     void deleteStudyByStudyName() {
@@ -137,7 +137,7 @@ class StudyServiceImplTest {
                 LocalDate.of(2023,12,12),
                 "MOH");
 
-        Mockito.when(studyRepository.findStudyByStudyName(studyName)).thenReturn(Optional.of(exisitingStudy));
+        Mockito.when(studyRepository.findByStudyName(studyName)).thenReturn(Optional.of(exisitingStudy));
         studyService.deleteStudyByStudyName(studyName);
 
         Mockito.verify(studyRepository,Mockito.times(1)).deleteStudyByStudyName(studyName);
@@ -160,7 +160,7 @@ class StudyServiceImplTest {
         Study updatedStudy = new Study("SickleCell", "Treat disease",LocalDate.of(2021,11,23),
                         LocalDate.of(2026,12,20),"NIH");
 
-        Mockito.when(studyRepository.findStudyByStudyName(studyName)).thenReturn(Optional.of(exisitingStudy));
+        Mockito.when(studyRepository.findByStudyName(studyName)).thenReturn(Optional.of(exisitingStudy));
 
         Mockito.when(studyRepository.save(Mockito.any(Study.class))).thenReturn(updatedStudy);
 

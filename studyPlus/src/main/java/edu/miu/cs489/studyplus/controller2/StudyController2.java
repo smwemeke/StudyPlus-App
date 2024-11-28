@@ -1,6 +1,7 @@
 package edu.miu.cs489.studyplus.controller2;
 
 import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
+import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
 import edu.miu.cs489.studyplus.service.StudyService;
 import jakarta.validation.Valid;
@@ -62,4 +63,18 @@ public class StudyController2 {
             redirectAttributes.addFlashAttribute("message", "Study deleted successfully!");
             return "redirect:/studies";
         }
+    @GetMapping("/view-participants/{studyId}")
+    public String viewParticipants(@PathVariable Long studyId, Model model) {
+        // Fetch participants associated with the study
+        List<ParticipantResponseDTO> participants = studyService.getParticipantsByStudyId(studyId);
+
+        // Add participants and studyId to the model
+        model.addAttribute("participants", participants);
+        model.addAttribute("studyId", studyId);
+
+        return "view-participants"; // Refers to view-participants.html
+    }
+
+
+
 }

@@ -17,7 +17,7 @@ public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "study_id")
-    private Integer studyId;
+    private Long studyId;
     private String studyName;
     private String description;
     private LocalDate startDate;

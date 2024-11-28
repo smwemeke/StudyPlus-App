@@ -12,6 +12,7 @@ public class StudyResponseMapper {
             return null;
         }
         return new StudyResponseDTO(
+                study.getStudyId(),
                 study.getStudyName(),
                 study.getDescription(),
                 study.getStartDate(),

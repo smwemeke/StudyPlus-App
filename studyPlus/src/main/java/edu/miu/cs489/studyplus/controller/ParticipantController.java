@@ -84,7 +84,7 @@ public class ParticipantController {
 public ResponseEntity<ParticipantResponseDTO> assignStudies(
         @RequestParam
         @Valid Long participantId,
-        @RequestBody List<Integer> studyId){
+        @RequestBody List<Long> studyId){
 
     if (participantId == null || studyId == null || studyId.isEmpty()) {
         return ResponseEntity.badRequest().body(null);

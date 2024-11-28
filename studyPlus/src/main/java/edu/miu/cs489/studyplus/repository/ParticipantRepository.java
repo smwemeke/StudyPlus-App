@@ -9,4 +9,5 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     Optional<Participant> findParticipantByUsername(String username);
     void deleteParticipantByUsername(String username);
     boolean existsByUsername(String username);
+    Optional<Participant> findById(Long id);
 }

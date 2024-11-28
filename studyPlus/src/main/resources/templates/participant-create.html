@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Participant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Create Participant</h1>
+    <form th:action="@{/participants}" th:object="${participant}" method="post" class="needs-validation" novalidate>
+        <div class="card p-4 shadow-sm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" th:value="${participant.username}" required />
+                    <div class="invalid-feedback">Please provide a username.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" id="firstname" name="firstname" class="form-control" th:value="${participant.firstname}" required />
+                    <div class="invalid-feedback">Please provide a first name.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input type="text" id="lastname" name="lastname" class="form-control" th:value="${participant.lastname}" required />
+                    <div class="invalid-feedback">Please provide a last name.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phonenumber" class="form-label">Phone Number</label>
+                    <input type="text" id="phonenumber" name="phonenumber" class="form-control" th:value="${participant.phonenumber}" minlength="10" maxlength="12" required />
+                    <div class="invalid-feedback">Phone number must be between 10 and 12 characters.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" th:value="${participant.email}" required />
+                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" class="form-control" th:value="${participant.dob}" required />
+                    <div class="invalid-feedback">Please provide a valid date of birth.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="joinDate" class="form-label">Join Date</label>
+                    <input type="date" id="joinDate" name="joinDate" class="form-control" th:value="${participant.joinDate}" required />
+                    <div class="invalid-feedback">Please provide a join date.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-4 shadow-sm mt-4">
+            <h3>Address</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="street" class="form-label">Street</label>
+                    <input type="text" id="street" name="addressRequestDTO.street" class="form-control" th:value="${participant.addressRequestDTO.street}" required />
+                    <div class="invalid-feedback">Please provide a street address.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" id="city" name="addressRequestDTO.city" class="form-control" th:value="${participant.addressRequestDTO.city}" required />
+                    <div class="invalid-feedback">Please provide a city.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" id="state" name="addressRequestDTO.state" class="form-control" th:value="${participant.addressRequestDTO.state}" required />
+                    <div class="invalid-feedback">Please provide a state.</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="zip" class="form-label">Zip Code</label>
+                    <input type="text" id="zip" name="addressRequestDTO.zip" class="form-control" th:value="${participant.addressRequestDTO.zip}" required />
+                    <div class="invalid-feedback">Please provide a zip code.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Bootstrap validation script
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+</body>
+</html>

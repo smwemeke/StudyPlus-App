@@ -2,6 +2,7 @@ package edu.miu.cs489.studyplus.service;
 
 
 import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
+import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface StudyService {
     void deleteStudyByStudyName(String studyName);
     Optional<StudyResponseDTO> updateStudy(String studyName, StudyRequestDTO studyRequestDTO);
     Optional<StudyResponseDTO> updateStudyPartially(String studyName, StudyRequestDTO studyRequestDTO);
+    List<ParticipantResponseDTO> getParticipantsByStudyId(Long studyId);
+
 }
