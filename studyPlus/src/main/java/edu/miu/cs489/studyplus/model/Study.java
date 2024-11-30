@@ -16,12 +16,16 @@ import java.util.List;
 public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "study_id")
+    @Column(name = "studyid")
     private Long studyId;
+    @Column(name = "studyname")
     private String studyName;
     private String description;
+    @Column(name = "startdate")
     private LocalDate startDate;
+    @Column(name = "enddate")
     private LocalDate endDate;
+    @Column(name = "studysponsor")
     private String studySponsor;
 
     @OneToMany(mappedBy = "study")

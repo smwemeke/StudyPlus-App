@@ -46,12 +46,12 @@ public class ParticipantServiceImpl implements ParticipantService {
         // Create Participant
         Participant newParticipant = new Participant();
         newParticipant.setUsername(participantRequestDTO.username());
-        newParticipant.setFirstname(participantRequestDTO.firstname());
-        newParticipant.setLastname(participantRequestDTO.lastname());
+        newParticipant.setFirstName(participantRequestDTO.firstname());
+        newParticipant.setLastName(participantRequestDTO.lastname());
         newParticipant.setDob(participantRequestDTO.dob());
         newParticipant.setJoinDate(participantRequestDTO.joinDate());
         newParticipant.setEmail(participantRequestDTO.email());
-        newParticipant.setPhonenumber(participantRequestDTO.phonenumber());
+        newParticipant.setPhoneNumber(participantRequestDTO.phonenumber());
         newParticipant.setAddress(
                 new Address(
                         participantRequestDTO.addressRequestDTO().city(),
@@ -71,9 +71,9 @@ public class ParticipantServiceImpl implements ParticipantService {
                 new ParticipantResponseDTO(
                         savedParticipant.getUserId(),
                         savedParticipant.getUsername(),
-                        savedParticipant.getFirstname(),
-                        savedParticipant.getLastname(),
-                        savedParticipant.getPhonenumber(),
+                        savedParticipant.getFirstName(),
+                        savedParticipant.getLastName(),
+                        savedParticipant.getPhoneNumber(),
                         savedParticipant.getEmail(),
                         new AddressResponseDTO(
                                 savedAddress.getStreet(),
@@ -96,9 +96,9 @@ public class ParticipantServiceImpl implements ParticipantService {
                 .map(participant -> new ParticipantResponseDTO(
                         participant.getUserId(),
                         participant.getUsername(),
-                        participant.getFirstname(),
-                        participant.getLastname(),
-                        participant.getPhonenumber(),
+                        participant.getFirstName(),
+                        participant.getLastName(),
+                        participant.getPhoneNumber(),
                         participant.getEmail(),
                         addressResponseMapper.toDTO(participant.getAddress()),
                         participant.getJoinDate(),
@@ -117,9 +117,9 @@ public class ParticipantServiceImpl implements ParticipantService {
                     new ParticipantResponseDTO(
                             foundParticipant.get().getUserId(),
                             foundParticipant.get().getUsername(),
-                            foundParticipant.get().getFirstname(),
-                            foundParticipant.get().getLastname(),
-                            foundParticipant.get().getPhonenumber(),
+                            foundParticipant.get().getFirstName(),
+                            foundParticipant.get().getLastName(),
+                            foundParticipant.get().getPhoneNumber(),
                             foundParticipant.get().getEmail(),
                             foundParticipant.map(participant -> addressResponseMapper.toDTO(participant.getAddress()))
                                     .orElse(null),
@@ -153,10 +153,10 @@ public class ParticipantServiceImpl implements ParticipantService {
         address.setCity(participantRequestDTO.addressRequestDTO().city());
 
         foundParticipant.setUsername(participantRequestDTO.username());
-        foundParticipant.setPhonenumber(participantRequestDTO.phonenumber());
+        foundParticipant.setPhoneNumber(participantRequestDTO.phonenumber());
         foundParticipant.setEmail(participantRequestDTO.email());
-        foundParticipant.setLastname(participantRequestDTO.lastname());
-        foundParticipant.setFirstname(participantRequestDTO.firstname());
+        foundParticipant.setLastName(participantRequestDTO.lastname());
+        foundParticipant.setFirstName(participantRequestDTO.firstname());
         foundParticipant.setDob(participantRequestDTO.dob());
         foundParticipant.setAddress(address);
         foundParticipant.setJoinDate(participantRequestDTO.joinDate());
@@ -168,9 +168,9 @@ public class ParticipantServiceImpl implements ParticipantService {
         return Optional.of(new ParticipantResponseDTO(
                 updatedParticipant.getUserId(),
                     updatedParticipant.getUsername(),
-                    updatedParticipant.getFirstname(),
-                    updatedParticipant.getLastname(),
-                    updatedParticipant.getPhonenumber(),
+                    updatedParticipant.getFirstName(),
+                    updatedParticipant.getLastName(),
+                    updatedParticipant.getPhoneNumber(),
                     updatedParticipant.getEmail(),
                     addressResponseMapper.toDTO(updatedParticipant.getAddress()),
                     updatedParticipant.getJoinDate(),
@@ -184,13 +184,13 @@ public class ParticipantServiceImpl implements ParticipantService {
         Participant foundParticipant = participantRepository.findParticipantByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(("Participant  with username: " + username + " not found")));
         if(participantRequestDTO.firstname() != null){
-            foundParticipant.setFirstname(participantRequestDTO.firstname());
+            foundParticipant.setFirstName(participantRequestDTO.firstname());
         }
         if(participantRequestDTO.lastname() != null){
-            foundParticipant.setLastname(participantRequestDTO.lastname());
+            foundParticipant.setLastName(participantRequestDTO.lastname());
         }
         if(participantRequestDTO.phonenumber() != null){
-                foundParticipant.setPhonenumber(participantRequestDTO.phonenumber());
+                foundParticipant.setPhoneNumber(participantRequestDTO.phonenumber());
             }
         if(participantRequestDTO.email() != null){
             foundParticipant.setEmail(participantRequestDTO.email());
@@ -202,9 +202,9 @@ public class ParticipantServiceImpl implements ParticipantService {
             return Optional.of(new ParticipantResponseDTO(
                     updatedParticipant.getUserId(),
                             updatedParticipant.getUsername(),
-                            updatedParticipant.getFirstname(),
-                            updatedParticipant.getLastname(),
-                            updatedParticipant.getPhonenumber(),
+                            updatedParticipant.getFirstName(),
+                            updatedParticipant.getLastName(),
+                            updatedParticipant.getPhoneNumber(),
                             updatedParticipant.getEmail(),
                             addressResponseMapper.toDTO(updatedParticipant.getAddress()),
                             updatedParticipant.getJoinDate(),
@@ -246,9 +246,9 @@ public class ParticipantServiceImpl implements ParticipantService {
                 return  new ParticipantResponseDTO(
                         updatedParticipant.getUserId(),
                         updatedParticipant.getUsername(),
-                        updatedParticipant.getFirstname(),
-                        updatedParticipant.getLastname(),
-                        updatedParticipant.getPhonenumber(),
+                        updatedParticipant.getFirstName(),
+                        updatedParticipant.getLastName(),
+                        updatedParticipant.getPhoneNumber(),
                          updatedParticipant.getEmail(),
                         addressResponseMapper.toDTO(updatedParticipant.getAddress()),
                         updatedParticipant.getJoinDate(),

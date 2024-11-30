@@ -16,10 +16,11 @@ import java.sql.Timestamp;
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notificationid")
     private Integer notficationId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "study_id")
+    @JoinColumn(name = "studyid")
     private Study study;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

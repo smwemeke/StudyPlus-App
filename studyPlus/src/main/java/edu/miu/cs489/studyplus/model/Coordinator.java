@@ -12,9 +12,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Coordinator extends  User{
-    @Column(name = "coordinatorname",unique = true)
+    @Column(name = "name",unique = true)
     private String coordinatorname;
     @OneToOne(cascade = CascadeType.ALL, fetch =  FetchType.EAGER)
-    @JoinColumn(name= "study_id")
+    @JoinColumn(name= "studyid")
     private Study study;
 }
