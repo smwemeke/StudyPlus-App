@@ -1,4 +1,4 @@
-package edu.miu.cs489.studyplus.controller2;
+package edu.miu.cs489.studyplus.controller1;
 
 import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/studies")
 @RequiredArgsConstructor
-public class StudyController2 {
+public class StudyController1 {
 
         private final StudyService studyService;
         //String result = "redirect:/studies";

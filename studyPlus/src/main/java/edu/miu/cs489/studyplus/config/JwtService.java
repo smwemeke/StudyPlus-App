@@ -1,5 +1,6 @@
 package edu.miu.cs489.studyplus.config;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -36,5 +37,12 @@ public class JwtService {
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
+    }
+    public Claims getClaims(String token){
+        return Jwts.parser()
+                .verifyWith(signInKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }

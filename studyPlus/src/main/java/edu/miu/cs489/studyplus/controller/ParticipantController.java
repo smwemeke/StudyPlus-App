@@ -2,9 +2,6 @@ package edu.miu.cs489.studyplus.controller;
 
 import edu.miu.cs489.studyplus.dto.request.ParticipantRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
-import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
-import edu.miu.cs489.studyplus.model.Participant;
-import edu.miu.cs489.studyplus.repository.ParticipantRepository;
 import edu.miu.cs489.studyplus.service.ParticipantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

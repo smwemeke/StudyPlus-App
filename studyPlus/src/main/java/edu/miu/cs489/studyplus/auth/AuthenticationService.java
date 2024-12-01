@@ -8,11 +8,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.Principal;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +38,7 @@ public class AuthenticationService {
         return new AuthenticationResponse(token);
     }
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest){
-         Authentication authentication = authenticationManager.authenticate(
+        Authentication authentication = authenticationManager.authenticate(
                  new UsernamePasswordAuthenticationToken(
                          authenticationRequest.username(),
                          authenticationRequest.password()
@@ -49,11 +46,8 @@ public class AuthenticationService {
          );
          // Now authentication is succesful
         // Generate token for authenticated user
-
-        User authenticatedUser = (User) userDetailsService.loadUserByUsername(authenticationRequest.username());
-      //  User authenticatedUser = userRepository.findByUsername(authenticationRequest.username()).orElseThrow(() -> new UsernameNotFoundException("not ofund"));
-//        Principal principal = (Principal) authentication.getPrincipal() ;
-      //  User authenticatedUser = (User) authentication.getPrincipal();
+          // User authenticatedUser = userRepository.findByUsername(authenticationRequest.username()).orElseThrow(() -> new UsernameNotFoundException("not ofund"));
+        User authenticatedUser = (User)authentication.getPrincipal();
         String token = jwtService.generateToken(authenticatedUser);
         return new AuthenticationResponse(token);
     }

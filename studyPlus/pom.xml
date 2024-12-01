@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.miu.cs489</groupId>
-	<artifactId>studyPlus</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>studyPlus</name>
+	<artifactId>studyplus</artifactId>
+	<version>1.0.1</version>
+	<name>studyplus</name>
 	<description>studyPlus</description>
 	<url/>
 	<licenses>

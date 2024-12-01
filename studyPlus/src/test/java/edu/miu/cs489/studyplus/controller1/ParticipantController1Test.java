@@ -1,10 +1,8 @@
-package edu.miu.cs489.studyplus.controller2;
+package edu.miu.cs489.studyplus.controller1;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class ParticipantController2Test {
+class ParticipantController1Test {
 
     @Test
     void getAllParticipants() {
