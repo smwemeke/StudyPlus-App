@@ -1,5 +1,6 @@
 package edu.miu.cs489.studyplus.config;
 
+import edu.miu.cs489.studyplus.model.Permission;
 import edu.miu.cs489.studyplus.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,9 @@ public class SecurityConfig {
                                         .requestMatchers("/api/p1/participants/**").hasAnyRole(Role.COORDINATOR.name(), Role.PARTICIPANT.name())
                                         .requestMatchers("/api/v1/coordinator").hasRole(Role.COORDINATOR.name())
                                         .requestMatchers("/api/v1/management/**").hasAnyRole(Role.COORDINATOR.name(), Role.PARTICIPANT.name())
+                                        .requestMatchers("/api/v1/management/participant-only").hasAnyAuthority(
+                                                Permission.PARTICIPANT_READ.getPermission(),
+                                                Permission.PARTICIPANT_WRITE.getPermission())
                                         .anyRequest()
                                         .authenticated()
                 )
