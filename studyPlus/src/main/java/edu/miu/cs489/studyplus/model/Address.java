@@ -14,6 +14,7 @@ import lombok.Setter;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "addressid")
     private Integer addressId;
     private String street;
     private String city;

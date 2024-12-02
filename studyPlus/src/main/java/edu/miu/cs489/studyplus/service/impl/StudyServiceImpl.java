@@ -4,7 +4,6 @@ import edu.miu.cs489.studyplus.dto.mapper.AddressResponseMapper;
 import edu.miu.cs489.studyplus.dto.mapper.StudyRequestMapper;
 import edu.miu.cs489.studyplus.dto.mapper.StudyResponseMapper;
 import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
-import edu.miu.cs489.studyplus.dto.response.AddressResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
 import edu.miu.cs489.studyplus.exception.UserNotFoundException;
@@ -140,9 +139,9 @@ public class StudyServiceImpl implements StudyService {
                 .map(participant -> new ParticipantResponseDTO(
                         participant.getUserId(),
                         participant.getUsername(),
-                        participant.getFirstname(),
-                        participant.getLastname(),
-                        participant.getPhonenumber(),
+                        participant.getFirstName(),
+                        participant.getLastName(),
+                        participant.getPhoneNumber(),
                         participant.getEmail(),
                         addressResponseMapper.toDTO(participant.getAddress()),
                         participant.getJoinDate(),

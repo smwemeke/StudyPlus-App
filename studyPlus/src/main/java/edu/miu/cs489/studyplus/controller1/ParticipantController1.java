@@ -1,10 +1,9 @@
-package edu.miu.cs489.studyplus.controller2;
+package edu.miu.cs489.studyplus.controller1;
 
 import edu.miu.cs489.studyplus.dto.request.AddressRequestDTO;
 import edu.miu.cs489.studyplus.dto.request.ParticipantRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
-import edu.miu.cs489.studyplus.model.Participant;
 import edu.miu.cs489.studyplus.service.ParticipantService;
 import edu.miu.cs489.studyplus.service.StudyService;
 import jakarta.validation.Valid;
@@ -21,7 +20,7 @@ import java.util.Optional;
     @Controller
     @RequestMapping("/participants")
     @RequiredArgsConstructor
-    public class ParticipantController2 {
+    public class ParticipantController1 {
 
         private final ParticipantService participantService;
         private final StudyService studyService;

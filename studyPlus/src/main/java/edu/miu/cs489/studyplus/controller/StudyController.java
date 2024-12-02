@@ -2,8 +2,6 @@ package edu.miu.cs489.studyplus.controller;
 
 import edu.miu.cs489.studyplus.dto.request.StudyRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
-import edu.miu.cs489.studyplus.model.Study;
-import edu.miu.cs489.studyplus.repository.StudyRepository;
 import edu.miu.cs489.studyplus.service.StudyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
