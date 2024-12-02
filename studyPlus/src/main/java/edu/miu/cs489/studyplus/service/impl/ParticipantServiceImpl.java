@@ -133,13 +133,16 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     @Transactional
     public void deleteParticipantByUsername(String username) {
+        System.out.println("Deleting participant with username: " + username);
         Optional<Participant> foundParticipant =
                 participantRepository.findParticipantByUsername(username);
         if (foundParticipant.isPresent()) {
             participantRepository.deleteParticipantByUsername(username);
+            System.out.println("Participant deleted.");
         } else {
-            throw new UserNotFoundException(username + " " );
+            throw new UserNotFoundException(username + "not found" );
         }
+
     }
     @Override
     public Optional<ParticipantResponseDTO> updateParticipant(String username, ParticipantRequestDTO participantRequestDTO) {

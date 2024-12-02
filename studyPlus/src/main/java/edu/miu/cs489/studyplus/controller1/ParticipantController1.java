@@ -65,6 +65,7 @@ import java.util.Optional;
 
         @PostMapping("/delete/{username}")
         public String deleteParticipant(@PathVariable String username, RedirectAttributes redirectAttributes) {
+            System.out.println("Delete request for username received:" + username);
             participantService.deleteParticipantByUsername(username);
             redirectAttributes.addFlashAttribute("message", "Participant deleted successfully!");
             return "redirect:/participants";

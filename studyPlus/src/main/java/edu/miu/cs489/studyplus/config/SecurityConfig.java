@@ -29,8 +29,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         request ->
                                 request.requestMatchers("/api/v1/auth/*").permitAll()
-                                        .requestMatchers("/api/v1/studies/**").hasRole(Role.COORDINATOR.name())
-                                        .requestMatchers("/api/p1/participants/**").hasAnyRole(Role.COORDINATOR.name(), Role.PARTICIPANT.name())
+                                        .requestMatchers("/api/v1/studies/**").permitAll()
+                                        .requestMatchers("/").permitAll()
+                                        .requestMatchers("/studyplus/**").permitAll()
+                                        .requestMatchers("/studies/**").permitAll()
+                                        .requestMatchers("/participants/**").permitAll()
+                                        .requestMatchers("/api/p1/participants/**").permitAll()
                                         .requestMatchers("/api/v1/coordinator").hasRole(Role.COORDINATOR.name())
                                         .requestMatchers("/api/v1/management/**").hasAnyRole(Role.COORDINATOR.name(), Role.PARTICIPANT.name())
                                         .requestMatchers("/api/v1/management/participant-only").hasAnyAuthority(

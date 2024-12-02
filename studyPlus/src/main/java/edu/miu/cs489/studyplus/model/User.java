@@ -13,7 +13,8 @@ import java.util.List;
 @Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 @Builder
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails {

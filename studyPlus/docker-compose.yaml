@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: 'postgres:latest' # Specifies the Docker image to use for the PostgreSQL service.
+    environment:
+      - 'POSTGRES_DB=studyplus'
+      - 'POSTGRES_USER=alvron'
+      - 'POSTGRES_PASSWORD=Uganda@2010'
+    ports:
+      - '5433:5432'
+    healthcheck: # Ensures that the PostgreSQL service is fully ready before the web service starts
+      test: [ "CMD", "pg_isready", "-U", "alvron" ]
+      interval: 10s # The health check runs every 10 seconds.
+      timeout: 5s # Each health check must complete within 5 seconds.
+      retries: 3 # Docker will retry the health check 3 times before marking the service as unhealthy.
+      start_period: 10s # Delay before Docker begins checking service health to allow PostgreSQL to initialize.
+
+  web:
+    image: 'smwemeke/studyplus:1.0.1'
+    build:
+      context: . # Uses the current directory as the build context, making all files in this directory available during the build process.
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8090"
+    depends_on:
+      postgres:
+        condition: service_healthy # Waits for the service to pass its health checks, ensuring it is fully operational.
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/studyplus
+      SPRING_DATASOURCE_USERNAME: alvron
+      SPRING_DATASOURCE_PASSWORD: Uganda@2010
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
