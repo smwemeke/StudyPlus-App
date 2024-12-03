@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
+          ditribution: 'microsoft'
           
       - name: List directory structure
         run: ls -R    
