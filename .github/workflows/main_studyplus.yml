@@ -26,11 +26,15 @@ jobs:
         run: mvn clean install
         working-directory: studyPlus
 
+      - name: Verify artifact existence
+        run: ls -R studyPlus/target
+
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'StudyPlus-App/studyPlus/target/*.jar'
+          path: 'studyPlus/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
