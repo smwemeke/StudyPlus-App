@@ -24,7 +24,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
-        working-directory: StudyPlus-App/studyplus
+        working-directory: StudyPlus-App/studyPlus
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
