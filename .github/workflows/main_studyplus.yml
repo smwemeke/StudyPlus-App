@@ -26,6 +26,7 @@ jobs:
         run: mvn clean install
         working-directory: StudyPlus-App/studyPlus
 
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
