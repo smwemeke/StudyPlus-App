@@ -20,7 +20,7 @@ services:
       context: . # Uses the current directory as the build context, making all files in this directory available during the build process.
       dockerfile: Dockerfile
     ports:
-      - "8080:8090"
+      - "8080:8080"
     depends_on:
       postgres:
         condition: service_healthy # Waits for the service to pass its health checks, ensuring it is fully operational.
