@@ -3,6 +3,7 @@ package edu.miu.cs489.studyplus.service.impl;
 import edu.miu.cs489.studyplus.dto.mapper.AddressResponseMapper;
 import edu.miu.cs489.studyplus.dto.mapper.StudyRequestMapper;
 import edu.miu.cs489.studyplus.dto.mapper.StudyResponseMapper;
+import edu.miu.cs489.studyplus.dto.request.NotificationRequestDTO;
 import edu.miu.cs489.studyplus.dto.request.ParticipantRequestDTO;
 import edu.miu.cs489.studyplus.dto.response.AddressResponseDTO;
 import edu.miu.cs489.studyplus.dto.response.ParticipantResponseDTO;
@@ -14,6 +15,7 @@ import edu.miu.cs489.studyplus.model.Participant;
 import edu.miu.cs489.studyplus.model.Study;
 import edu.miu.cs489.studyplus.repository.ParticipantRepository;
 import edu.miu.cs489.studyplus.repository.StudyRepository;
+import edu.miu.cs489.studyplus.service.NotificationService;
 import edu.miu.cs489.studyplus.service.ParticipantService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -25,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static edu.miu.cs489.studyplus.util.Message.USER_NOT_FOUND;
-
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class ParticipantServiceImpl implements ParticipantService {
@@ -34,6 +36,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     private  final StudyRequestMapper studyRequestMapper;
     private final AddressResponseMapper addressResponseMapper;
     private final StudyRepository studyRepository;
+    private final NotificationService notificationService;
 
     @Override
     public Optional<ParticipantResponseDTO> createParticipants(ParticipantRequestDTO participantRequestDTO) {
@@ -217,6 +220,18 @@ public class ParticipantServiceImpl implements ParticipantService {
             ));
         }
 
+    private void notifyParticipantAssigned(Participant participant, Study study)   {
+        if(participant==null){
+            return;
+        }
+
+        String message = String.format("%s you have been enrolled in a new study %s", participant.getFirstName(),study.getStudyName() );
+        String subject ="New study Assigned";
+
+
+        notificationService.sendNotification(study, participant, subject, message);
+    }
+
     @Override
     public ParticipantResponseDTO assignStudies(Long participantId, List<Long> studyIds) {
         Participant participant = participantRepository.findById(participantId)
@@ -233,8 +248,10 @@ public class ParticipantServiceImpl implements ParticipantService {
                 study.getParticipant().add(participant);
             }
         });
-        Participant updatedParticipant = participantRepository.save(participant);
 
+       for(Study study : studyList){
+           notifyParticipantAssigned(participant, study);
+       }
         List<StudyResponseDTO> studyResponseDTOList = studyList.stream()
                 .map(study -> new StudyResponseDTO(
                         study.getStudyId(),
@@ -247,14 +264,14 @@ public class ParticipantServiceImpl implements ParticipantService {
                 .toList();
 
                 return  new ParticipantResponseDTO(
-                        updatedParticipant.getUserId(),
-                        updatedParticipant.getUsername(),
-                        updatedParticipant.getFirstName(),
-                        updatedParticipant.getLastName(),
-                        updatedParticipant.getPhoneNumber(),
-                         updatedParticipant.getEmail(),
-                        addressResponseMapper.toDTO(updatedParticipant.getAddress()),
-                        updatedParticipant.getJoinDate(),
+                        participant.getUserId(),
+                        participant.getUsername(),
+                        participant.getFirstName(),
+                        participant.getLastName(),
+                        participant.getPhoneNumber(),
+                        participant.getEmail(),
+                        addressResponseMapper.toDTO(participant.getAddress()),
+                        participant.getJoinDate(),
                         studyResponseDTOList
         );
     }

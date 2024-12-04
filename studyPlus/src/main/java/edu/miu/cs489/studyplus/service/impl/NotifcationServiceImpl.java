@@ -14,6 +14,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class NotifcationServiceImpl implements NotificationService {
@@ -23,36 +27,25 @@ public class NotifcationServiceImpl implements NotificationService {
     private final NotificationRepository notificationRepository;
 
     @Override
-    public void sendNotification(NotificationRequestDTO requestDTO) {
+    public void sendNotification(Study study, Participant participant, String subject, String message) {
 
-    // Fetch Study name
-        Study study = studyRepository.findByStudyName(requestDTO.studyRequestDTO().studyName())
-                .orElseThrow(() -> new EntityNotFoundException("Study not found"));
 
-        // Fetch Participant name
-        Participant participant = participantRepository.findParticipantByUsername(requestDTO.participantRequestDTO().username())
-                .orElseThrow(() -> new UserNotFoundException("Participant not found"));
 
         // Create notification
         Notification notification = new Notification();
         notification.setStudy(study);
         notification.setParticipant(participant);
-        notification.setSubject(requestDTO.subject());
-        notification.setMessage(requestDTO.message());
-        notification.setSentAt(requestDTO.sentAt());
+        notification.setSubject(subject);
+        notification.setMessage(message);
+        notification.setSentAt(LocalDateTime.now());
 
         // save notifcation
         notificationRepository.save(notification);
 
         // Sending email
-        String emailMessage = String.format(
-                "Dear %s,%n%n%s%n%nStudy: %s%n%nRegards,%nStudy Team",
-                participant.getUsername(),
-                requestDTO.message(),
-                study.getStudyName()
-        );
+
         emailService.sendEmail(participant.getEmail(),
-                requestDTO.subject(),
-                emailMessage);
+                subject,
+                message);
     }
 }

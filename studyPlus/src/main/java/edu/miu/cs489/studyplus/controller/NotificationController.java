@@ -16,10 +16,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class NotificationController {
     private final NotificationService notificationService;
 
-    @PostMapping("/send")
-    public ResponseEntity<String> sendNotification(@RequestBody NotificationRequestDTO requestDTO){
-        notificationService.sendNotification(requestDTO);
-        return ResponseEntity.status(HttpStatus.OK).body("Notification sent successfully");
-    }
 
 }

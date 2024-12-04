@@ -9,6 +9,7 @@ import edu.miu.cs489.studyplus.dto.response.StudyResponseDTO;
 import edu.miu.cs489.studyplus.exception.UserNotFoundException;
 import edu.miu.cs489.studyplus.model.Study;
 import edu.miu.cs489.studyplus.repository.StudyRepository;
+import edu.miu.cs489.studyplus.service.NotificationService;
 import edu.miu.cs489.studyplus.service.StudyService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
