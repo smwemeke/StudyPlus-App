@@ -226,8 +226,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         }
 
         String message = String.format("%s you have been enrolled in a new study %s", participant.getFirstName(),study.getStudyName() );
-        String subject ="New study Assigned";
-
+        String subject ="Enrolled in new study successfully";
 
         notificationService.sendNotification(study, participant, subject, message);
     }

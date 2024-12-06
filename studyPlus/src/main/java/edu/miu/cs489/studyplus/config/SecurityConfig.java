@@ -34,6 +34,7 @@ public class SecurityConfig {
                                         .requestMatchers("/studyplus/**").permitAll()
                                         .requestMatchers("/studies/**").permitAll()
                                         .requestMatchers("/participants/**").permitAll()
+                                        .requestMatchers( "/participants/assign-studies/**").permitAll()
                                         .requestMatchers("/api/p1/participants/**").permitAll()
                                         .requestMatchers("/api/v1/coordinator").hasRole(Role.COORDINATOR.name())
                                         .requestMatchers("/api/v1/management/**").hasAnyRole(Role.COORDINATOR.name(), Role.PARTICIPANT.name())

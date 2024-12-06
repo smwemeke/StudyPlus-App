@@ -1,4 +1,5 @@
 FROM amazoncorretto:21
+RUN apt-get update && apt-get install -y ca-certificates
 
 # setting the working directory inside the container to /app
 WORKDIR /app
