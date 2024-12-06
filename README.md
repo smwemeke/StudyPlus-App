@@ -50,7 +50,7 @@ Improve study management and data accuracy by creating a well-structured platfor
         
 
 # 2.2 Non-functional Requirement
-    **Security**: system must be secure
+    - **Security**: system must be secure
 
     **Avaliability**: System must be avaliable at all times
 
