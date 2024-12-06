@@ -1,4 +1,6 @@
-# 1. Problem Statement: StudyPlus-App
+Study Plus Application for Research Insititutions
+
+# 1. Problem Statement
 
 ## Challenges
 The Makerere University - Johns Hopkins University (MU-JHU) Research Collaboration faces several challenges in managing health research studies efficiently, including:
@@ -16,9 +18,22 @@ The Makerere University - Johns Hopkins University (MU-JHU) Research Collaborati
 ## Project Objective
 StudyPlus aims to develop a streamlined, efficient platform tailored to health research management, with the Study Coordinator acting as the system’s Admin. This role includes the ability to manage studies, oversee participant tracking, and ensure data accuracy and smooth communication. The platform is designed to facilitate improved study coordination and data management. 
 
-Create a research management platform that:
 
-**User Roles**:
+**Study Management**: Enables the Study Coordinator to monitor real-time progress for each study, with clear statuses and notifications for each stage (Ongoing, Completed, etc.).
+
+**Participant Management**: Streamlines participant registration and data management for efficient recruitment and follow-up, helping coordinators maintain accurate and up-to-date information.
+
+**Data Accuracy and Reporting**: Centralizes data input, enhancing accuracy for reporting and analysis needs across studies.
+
+**Role-Specific Access**: Provides a tailored interface and specific permissions for the Study Coordinator (Admin) and Participants, ensuring ease of access and navigation for all users.
+
+## Desired Outcome
+
+Improve study management and data accuracy by creating a well-structured platform that meets the needs of coordinators and participants. This includes simplified participant registration, real-time study progress tracking, and robust reporting to support MU-JHU’s mission in health research and services, leading to improved study management and outcomes.
+
+# 2. Requirements Analysis
+
+# 2.1 Functional Requirements
 
   ***Study Coordinator (Admin)***: Has full control over platform data, including the ability to:
    
@@ -33,26 +48,90 @@ Create a research management platform that:
         
         - Receives notifications (enrollment confirmation, study end date etc)
         
-**Study Management**: Enables the Study Coordinator to monitor real-time progress for each study, with clear statuses and notifications for each stage (Ongoing, Completed, etc.).
 
-**Participant Management**: Streamlines participant registration and data management for efficient recruitment and follow-up, helping coordinators maintain accurate and up-to-date information.
+# 2.2 Non-functional Requirement
+Security: system must be secure
 
-**Data Accuracy and Reporting**: Centralizes data input, enhancing accuracy for reporting and analysis needs across studies.
+Avaliability: System must be avaliable at all times
 
-**Role-Specific Access**: Provides a tailored interface and specific permissions for the Study Coordinator (Admin) and Participants, ensuring ease of access and navigation for all users.
-
-## Desired Outcome
-
-Improve study management and data accuracy by creating a well-structured platform that meets the needs of coordinators and participants. This includes simplified participant registration, real-time study progress tracking, and robust reporting to support MU-JHU’s mission in health research and services, leading to improved study management and outcomes.
-
-# 2. Architecture
+# 3. Architecture
 
 ![StudyPlus_Architecture](https://github.com/user-attachments/assets/541d2232-e753-4f00-9d84-2e059bed4602)
 
-# 3. UML Class Diagram
+# 4. UML Class Diagram
 
 ![newStudyPlus](https://github.com/user-attachments/assets/f0434061-622a-4f80-b44e-f4dd12888588)
 
 # 4. ER Diagram
 
 ![StudyPlus_ER Diagram](https://github.com/user-attachments/assets/c362d063-874e-48c3-b8cc-662d6edbc20d)
+
+# 5. Local Setup Instructions
+1. Setup database connection in application.properties
+2. Start the application
+# 6.2 
+# 7. Software Setup Instructions
+# 7.1 Local Installation
+Install JDK 21 from the following link:
+https://www.oracle.com/java/technologies/downloads
+
+Download or clone this repository:
+git clone https://github.com/smwemeke/StudyPlus-App.git
+
+Run PostgreSQL
+
+Configure PostgreSQL in application.prooerties file:
+![image](https://github.com/user-attachments/assets/0ab118e8-17d1-4550-a57f-a0c4fa0e3b95)
+
+package application
+mvn clean package
+
+Run the application
+java -jar target/studyplus-1.0.1.jar
+![image](https://github.com/user-attachments/assets/bf177996-f006-426e-ab20-f954d0ae5716)
+
+Setting up application on Docker
+# Package springboot application
+mvn clean package
+
+# Build image
+docker build -t smwemeke/studyplusapp:1.0.1
+# Start application and its services 
+docker-compose up -d
+
+# Setting up on Azure
+
+  Create Dockerfile for application to build image
+
+  Create Docker compose file including postgres database configuration  and application
+
+  Create jar file (make sure to comment out database information in 
+  application.properties file. If not, it does not work when deploying to Azure)
+
+# Package the apllication
+    mvn clean package
+# Build docker image for application
+        docker build -t smwemeke/studyplus:1.0.1
+  Push image to Docker Hub (https://hub.docker.com/)
+      docker push smwemeke/studyplus:1.0.1
+  create App service
+
+  ![image](https://github.com/user-attachments/assets/8fadfb8a-d275-4af3-8f77-75873f982d16)
+
+  In Deployment -> Deployment Center, configure
+
+Container type: Docker Compose
+
+Registry source: Docker Hub
+
+copy and paste the Docker compose configurations into the Config textbox
+![image](https://github.com/user-attachments/assets/d8996973-f61e-42d2-84b9-c3c3e63b9ac5)
+
+# Links
+Project Demo for deploymeny on Azure
+https://mum0-my.sharepoint.com/:v:/r/personal/smwemeke_miu_edu/Documents/Microsoft%20Teams%20Chat%20Files/studyplus-Container_Deployment.mp4?csf=1&web=1&e=HUEoxW
+
+
+
+
+        
