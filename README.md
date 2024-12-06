@@ -120,6 +120,9 @@ Improve study management and data accuracy by creating a well-structured platfor
          Copy and paste the Docker compose configurations into the Config textbox
              ![image](https://github.com/user-attachments/assets/d8996973-f61e-42d2-84b9-c3c3e63b9ac5)
 
+         Deployed application running on Azure
+         ![image](https://github.com/user-attachments/assets/5594ec66-1314-4961-a8d6-f447f6aa2d32)
+
 # 6. Links
 Project Demo for deploymeny on Azure
 https://mum0-my.sharepoint.com/:v:/r/personal/smwemeke_miu_edu/Documents/Microsoft%20Teams%20Chat%20Files/studyplus-Container_Deployment.mp4?csf=1&web=1&e=HUEoxW
