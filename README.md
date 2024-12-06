@@ -50,9 +50,11 @@ Improve study management and data accuracy by creating a well-structured platfor
         
 
 # 2.2 Non-functional Requirement
-    - **Security**: system must be secure
+    - **Security**: System must be secure
+    - **Security**: Secure authentication and authorization for study coordinators and participants
+    
 
-    **Avaliability**: System must be avaliable at all times
+    **Avaliability**: System must be avaliable at all times through cloud deployment
 
 # 3. Architecture
 
