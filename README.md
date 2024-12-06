@@ -1,4 +1,4 @@
-Study Plus Application for Research Insititutions
+# Study Plus Application for Research Insititutions
 
 # 1. Problem Statement
 
@@ -50,9 +50,9 @@ Improve study management and data accuracy by creating a well-structured platfor
         
 
 # 2.2 Non-functional Requirement
-Security: system must be secure
+    **Security**: system must be secure
 
-Avaliability: System must be avaliable at all times
+    **Avaliability**: System must be avaliable at all times
 
 # 3. Architecture
 
@@ -66,68 +66,62 @@ Avaliability: System must be avaliable at all times
 
 ![StudyPlus_ER Diagram](https://github.com/user-attachments/assets/c362d063-874e-48c3-b8cc-662d6edbc20d)
 
-# 5. Local Setup Instructions
-1. Setup database connection in application.properties
-2. Start the application
-# 6.2 
-# 7. Software Setup Instructions
-# 7.1 Local Installation
-Install JDK 21 from the following link:
-https://www.oracle.com/java/technologies/downloads
+# 5. Software Setup Instructions
+# 5.1 Local Installation
+      Install JDK 21 from the following link:
+         https://www.oracle.com/java/technologies/downloads
 
-Download or clone this repository:
-git clone https://github.com/smwemeke/StudyPlus-App.git
+      Download or clone this repository:
+         git clone https://github.com/smwemeke/StudyPlus-App.git
 
-Run PostgreSQL
-
-Configure PostgreSQL in application.prooerties file:
+      Run PostgreSQL
+         Configure PostgreSQL in application.prooerties file:
 ![image](https://github.com/user-attachments/assets/0ab118e8-17d1-4550-a57f-a0c4fa0e3b95)
 
-package application
-mvn clean package
+     Package application
+        mvn clean package
 
-Run the application
-java -jar target/studyplus-1.0.1.jar
+     Run the application
+       java -jar target/studyplus-1.0.1.jar
 ![image](https://github.com/user-attachments/assets/bf177996-f006-426e-ab20-f954d0ae5716)
 
-Setting up application on Docker
-# Package springboot application
-mvn clean package
+# 5.2 Setting up application on Docker
+     Package springboot application
+        mvn clean package
+     
+     Build image
+        docker build -t smwemeke/studyplusapp:1.0.1
+     Start application and its services 
+        docker-compose up -d
 
-# Build image
-docker build -t smwemeke/studyplusapp:1.0.1
-# Start application and its services 
-docker-compose up -d
+# 5.3 Setting up on Azure
 
-# Setting up on Azure
+      Create Dockerfile for application to build image
 
-  Create Dockerfile for application to build image
+      Create Docker compose file including postgres database configuration  and application
 
-  Create Docker compose file including postgres database configuration  and application
+      Create jar file (make sure to comment out database information in application.properties file. If not, it does not work when deploying to Azure)
 
-  Create jar file (make sure to comment out database information in 
-  application.properties file. If not, it does not work when deploying to Azure)
-
-# Package the apllication
-    mvn clean package
-# Build docker image for application
-        docker build -t smwemeke/studyplus:1.0.1
-  Push image to Docker Hub (https://hub.docker.com/)
-      docker push smwemeke/studyplus:1.0.1
-  create App service
+      Package the application
+           mvn clean package
+      Build docker image for application
+           docker build -t smwemeke/studyplus:1.0.1
+      Push image to Docker Hub (https://hub.docker.com/)
+           docker push smwemeke/studyplus:1.0.1
+      create App service
 
   ![image](https://github.com/user-attachments/assets/8fadfb8a-d275-4af3-8f77-75873f982d16)
 
-  In Deployment -> Deployment Center, configure
+      In Deployment -> Deployment Center, configure
 
-Container type: Docker Compose
+         Container type: Docker Compose
 
-Registry source: Docker Hub
+         Registry source: Docker Hub
 
-copy and paste the Docker compose configurations into the Config textbox
-![image](https://github.com/user-attachments/assets/d8996973-f61e-42d2-84b9-c3c3e63b9ac5)
+         Copy and paste the Docker compose configurations into the Config textbox
+             ![image](https://github.com/user-attachments/assets/d8996973-f61e-42d2-84b9-c3c3e63b9ac5)
 
-# Links
+# 6. Links
 Project Demo for deploymeny on Azure
 https://mum0-my.sharepoint.com/:v:/r/personal/smwemeke_miu_edu/Documents/Microsoft%20Teams%20Chat%20Files/studyplus-Container_Deployment.mp4?csf=1&web=1&e=HUEoxW
 
