@@ -21,11 +21,11 @@ StudyPlus aims to develop a streamlined, efficient platform tailored to health r
 
 - **Study Management**: Enables the Study Coordinator to monitor real-time progress for each study, with clear statuses and notifications for each stage (Ongoing, Completed, etc.).
 
-**Participant Management**: Streamlines participant registration and data management for efficient recruitment and follow-up, helping coordinators maintain accurate and up-to-date information.
+- **Participant Management**: Streamlines participant registration and data management for efficient recruitment and follow-up, helping coordinators maintain accurate and up-to-date information.
 
-**Data Accuracy and Reporting**: Centralizes data input, enhancing accuracy for reporting and analysis needs across studies.
+- **Data Accuracy and Reporting**: Centralizes data input, enhancing accuracy for reporting and analysis needs across studies.
 
-**Role-Specific Access**: Provides a tailored interface and specific permissions for the Study Coordinator (Admin) and Participants, ensuring ease of access and navigation for all users.
+- **Role-Specific Access**: Provides a tailored interface and specific permissions for the Study Coordinator (Admin) and Participants, ensuring ease of access and navigation for all users.
 
 ## Desired Outcome
 
@@ -50,11 +50,8 @@ Improve study management and data accuracy by creating a well-structured platfor
         
 
 # 2.2 Non-functional Requirement
-    - **Security**: System must be secure
-    - **Security**: Secure authentication and authorization for study coordinators and participants
-    
-
-    **Avaliability**: System must be avaliable at all times through cloud deployment
+- **Security**: Secure authentication and authorization for study coordinators and participants
+- **Avaliability**: System must be avaliable at all times through cloud deployment
 
 # 3. Architecture
 
